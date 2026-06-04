@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FarmYieldRouteImport } from './routes/farm.yield'
+import { Route as FarmPlantsRouteImport } from './routes/farm.plants'
+import { Route as FarmOverviewRouteImport } from './routes/farm.overview'
+import { Route as FarmHistoryRouteImport } from './routes/farm.history'
+import { Route as FarmHealthRouteImport } from './routes/farm.health'
+import { Route as FarmGrowthRouteImport } from './routes/farm.growth'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FarmYieldRoute = FarmYieldRouteImport.update({
+  id: '/farm/yield',
+  path: '/farm/yield',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmPlantsRoute = FarmPlantsRouteImport.update({
+  id: '/farm/plants',
+  path: '/farm/plants',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmOverviewRoute = FarmOverviewRouteImport.update({
+  id: '/farm/overview',
+  path: '/farm/overview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmHistoryRoute = FarmHistoryRouteImport.update({
+  id: '/farm/history',
+  path: '/farm/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmHealthRoute = FarmHealthRouteImport.update({
+  id: '/farm/health',
+  path: '/farm/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmGrowthRoute = FarmGrowthRouteImport.update({
+  id: '/farm/growth',
+  path: '/farm/growth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/farm/growth': typeof FarmGrowthRoute
+  '/farm/health': typeof FarmHealthRoute
+  '/farm/history': typeof FarmHistoryRoute
+  '/farm/overview': typeof FarmOverviewRoute
+  '/farm/plants': typeof FarmPlantsRoute
+  '/farm/yield': typeof FarmYieldRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/farm/growth': typeof FarmGrowthRoute
+  '/farm/health': typeof FarmHealthRoute
+  '/farm/history': typeof FarmHistoryRoute
+  '/farm/overview': typeof FarmOverviewRoute
+  '/farm/plants': typeof FarmPlantsRoute
+  '/farm/yield': typeof FarmYieldRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/farm/growth': typeof FarmGrowthRoute
+  '/farm/health': typeof FarmHealthRoute
+  '/farm/history': typeof FarmHistoryRoute
+  '/farm/overview': typeof FarmOverviewRoute
+  '/farm/plants': typeof FarmPlantsRoute
+  '/farm/yield': typeof FarmYieldRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/farm/growth'
+    | '/farm/health'
+    | '/farm/history'
+    | '/farm/overview'
+    | '/farm/plants'
+    | '/farm/yield'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/farm/growth'
+    | '/farm/health'
+    | '/farm/history'
+    | '/farm/overview'
+    | '/farm/plants'
+    | '/farm/yield'
+  id:
+    | '__root__'
+    | '/'
+    | '/farm/growth'
+    | '/farm/health'
+    | '/farm/history'
+    | '/farm/overview'
+    | '/farm/plants'
+    | '/farm/yield'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FarmGrowthRoute: typeof FarmGrowthRoute
+  FarmHealthRoute: typeof FarmHealthRoute
+  FarmHistoryRoute: typeof FarmHistoryRoute
+  FarmOverviewRoute: typeof FarmOverviewRoute
+  FarmPlantsRoute: typeof FarmPlantsRoute
+  FarmYieldRoute: typeof FarmYieldRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,12 +130,70 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/farm/yield': {
+      id: '/farm/yield'
+      path: '/farm/yield'
+      fullPath: '/farm/yield'
+      preLoaderRoute: typeof FarmYieldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/plants': {
+      id: '/farm/plants'
+      path: '/farm/plants'
+      fullPath: '/farm/plants'
+      preLoaderRoute: typeof FarmPlantsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/overview': {
+      id: '/farm/overview'
+      path: '/farm/overview'
+      fullPath: '/farm/overview'
+      preLoaderRoute: typeof FarmOverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/history': {
+      id: '/farm/history'
+      path: '/farm/history'
+      fullPath: '/farm/history'
+      preLoaderRoute: typeof FarmHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/health': {
+      id: '/farm/health'
+      path: '/farm/health'
+      fullPath: '/farm/health'
+      preLoaderRoute: typeof FarmHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/growth': {
+      id: '/farm/growth'
+      path: '/farm/growth'
+      fullPath: '/farm/growth'
+      preLoaderRoute: typeof FarmGrowthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FarmGrowthRoute: FarmGrowthRoute,
+  FarmHealthRoute: FarmHealthRoute,
+  FarmHistoryRoute: FarmHistoryRoute,
+  FarmOverviewRoute: FarmOverviewRoute,
+  FarmPlantsRoute: FarmPlantsRoute,
+  FarmYieldRoute: FarmYieldRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
