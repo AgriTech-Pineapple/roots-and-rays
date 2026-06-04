@@ -9,6 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as DataRouteImport } from './routes/data'
+import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WorkforceWorkersRouteImport } from './routes/workforce.workers'
 import { Route as WorkforceTeamsRouteImport } from './routes/workforce.teams'
@@ -16,6 +19,9 @@ import { Route as WorkforceTasksRouteImport } from './routes/workforce.tasks'
 import { Route as WorkforceFormsRouteImport } from './routes/workforce.forms'
 import { Route as WorkforceAttendanceRouteImport } from './routes/workforce.attendance'
 import { Route as WorkforceAnalyticsRouteImport } from './routes/workforce.analytics'
+import { Route as ReportsWorkforceRouteImport } from './routes/reports.workforce'
+import { Route as ReportsFarmRouteImport } from './routes/reports.farm'
+import { Route as ReportsExecutiveRouteImport } from './routes/reports.executive'
 import { Route as GisYieldRouteImport } from './routes/gis.yield'
 import { Route as GisTerrainRouteImport } from './routes/gis.terrain'
 import { Route as GisNdviRouteImport } from './routes/gis.ndvi'
@@ -33,6 +39,21 @@ import { Route as DronesMissionsRouteImport } from './routes/drones.missions'
 import { Route as DronesLogsRouteImport } from './routes/drones.logs'
 import { Route as DronesEquipmentRouteImport } from './routes/drones.equipment'
 
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataRoute = DataRouteImport.update({
+  id: '/data',
+  path: '/data',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -66,6 +87,21 @@ const WorkforceAttendanceRoute = WorkforceAttendanceRouteImport.update({
 const WorkforceAnalyticsRoute = WorkforceAnalyticsRouteImport.update({
   id: '/workforce/analytics',
   path: '/workforce/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsWorkforceRoute = ReportsWorkforceRouteImport.update({
+  id: '/reports/workforce',
+  path: '/reports/workforce',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsFarmRoute = ReportsFarmRouteImport.update({
+  id: '/reports/farm',
+  path: '/reports/farm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsExecutiveRoute = ReportsExecutiveRouteImport.update({
+  id: '/reports/executive',
+  path: '/reports/executive',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GisYieldRoute = GisYieldRouteImport.update({
@@ -151,6 +187,9 @@ const DronesEquipmentRoute = DronesEquipmentRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/data': typeof DataRoute
+  '/settings': typeof SettingsRoute
   '/drones/equipment': typeof DronesEquipmentRoute
   '/drones/logs': typeof DronesLogsRoute
   '/drones/missions': typeof DronesMissionsRoute
@@ -167,6 +206,9 @@ export interface FileRoutesByFullPath {
   '/gis/ndvi': typeof GisNdviRoute
   '/gis/terrain': typeof GisTerrainRoute
   '/gis/yield': typeof GisYieldRoute
+  '/reports/executive': typeof ReportsExecutiveRoute
+  '/reports/farm': typeof ReportsFarmRoute
+  '/reports/workforce': typeof ReportsWorkforceRoute
   '/workforce/analytics': typeof WorkforceAnalyticsRoute
   '/workforce/attendance': typeof WorkforceAttendanceRoute
   '/workforce/forms': typeof WorkforceFormsRoute
@@ -176,6 +218,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/data': typeof DataRoute
+  '/settings': typeof SettingsRoute
   '/drones/equipment': typeof DronesEquipmentRoute
   '/drones/logs': typeof DronesLogsRoute
   '/drones/missions': typeof DronesMissionsRoute
@@ -192,6 +237,9 @@ export interface FileRoutesByTo {
   '/gis/ndvi': typeof GisNdviRoute
   '/gis/terrain': typeof GisTerrainRoute
   '/gis/yield': typeof GisYieldRoute
+  '/reports/executive': typeof ReportsExecutiveRoute
+  '/reports/farm': typeof ReportsFarmRoute
+  '/reports/workforce': typeof ReportsWorkforceRoute
   '/workforce/analytics': typeof WorkforceAnalyticsRoute
   '/workforce/attendance': typeof WorkforceAttendanceRoute
   '/workforce/forms': typeof WorkforceFormsRoute
@@ -202,6 +250,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/data': typeof DataRoute
+  '/settings': typeof SettingsRoute
   '/drones/equipment': typeof DronesEquipmentRoute
   '/drones/logs': typeof DronesLogsRoute
   '/drones/missions': typeof DronesMissionsRoute
@@ -218,6 +269,9 @@ export interface FileRoutesById {
   '/gis/ndvi': typeof GisNdviRoute
   '/gis/terrain': typeof GisTerrainRoute
   '/gis/yield': typeof GisYieldRoute
+  '/reports/executive': typeof ReportsExecutiveRoute
+  '/reports/farm': typeof ReportsFarmRoute
+  '/reports/workforce': typeof ReportsWorkforceRoute
   '/workforce/analytics': typeof WorkforceAnalyticsRoute
   '/workforce/attendance': typeof WorkforceAttendanceRoute
   '/workforce/forms': typeof WorkforceFormsRoute
@@ -229,6 +283,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/alerts'
+    | '/data'
+    | '/settings'
     | '/drones/equipment'
     | '/drones/logs'
     | '/drones/missions'
@@ -245,6 +302,9 @@ export interface FileRouteTypes {
     | '/gis/ndvi'
     | '/gis/terrain'
     | '/gis/yield'
+    | '/reports/executive'
+    | '/reports/farm'
+    | '/reports/workforce'
     | '/workforce/analytics'
     | '/workforce/attendance'
     | '/workforce/forms'
@@ -254,6 +314,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/alerts'
+    | '/data'
+    | '/settings'
     | '/drones/equipment'
     | '/drones/logs'
     | '/drones/missions'
@@ -270,6 +333,9 @@ export interface FileRouteTypes {
     | '/gis/ndvi'
     | '/gis/terrain'
     | '/gis/yield'
+    | '/reports/executive'
+    | '/reports/farm'
+    | '/reports/workforce'
     | '/workforce/analytics'
     | '/workforce/attendance'
     | '/workforce/forms'
@@ -279,6 +345,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/alerts'
+    | '/data'
+    | '/settings'
     | '/drones/equipment'
     | '/drones/logs'
     | '/drones/missions'
@@ -295,6 +364,9 @@ export interface FileRouteTypes {
     | '/gis/ndvi'
     | '/gis/terrain'
     | '/gis/yield'
+    | '/reports/executive'
+    | '/reports/farm'
+    | '/reports/workforce'
     | '/workforce/analytics'
     | '/workforce/attendance'
     | '/workforce/forms'
@@ -305,6 +377,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  DataRoute: typeof DataRoute
+  SettingsRoute: typeof SettingsRoute
   DronesEquipmentRoute: typeof DronesEquipmentRoute
   DronesLogsRoute: typeof DronesLogsRoute
   DronesMissionsRoute: typeof DronesMissionsRoute
@@ -321,6 +396,9 @@ export interface RootRouteChildren {
   GisNdviRoute: typeof GisNdviRoute
   GisTerrainRoute: typeof GisTerrainRoute
   GisYieldRoute: typeof GisYieldRoute
+  ReportsExecutiveRoute: typeof ReportsExecutiveRoute
+  ReportsFarmRoute: typeof ReportsFarmRoute
+  ReportsWorkforceRoute: typeof ReportsWorkforceRoute
   WorkforceAnalyticsRoute: typeof WorkforceAnalyticsRoute
   WorkforceAttendanceRoute: typeof WorkforceAttendanceRoute
   WorkforceFormsRoute: typeof WorkforceFormsRoute
@@ -331,6 +409,27 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/data': {
+      id: '/data'
+      path: '/data'
+      fullPath: '/data'
+      preLoaderRoute: typeof DataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -378,6 +477,27 @@ declare module '@tanstack/react-router' {
       path: '/workforce/analytics'
       fullPath: '/workforce/analytics'
       preLoaderRoute: typeof WorkforceAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports/workforce': {
+      id: '/reports/workforce'
+      path: '/reports/workforce'
+      fullPath: '/reports/workforce'
+      preLoaderRoute: typeof ReportsWorkforceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports/farm': {
+      id: '/reports/farm'
+      path: '/reports/farm'
+      fullPath: '/reports/farm'
+      preLoaderRoute: typeof ReportsFarmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports/executive': {
+      id: '/reports/executive'
+      path: '/reports/executive'
+      fullPath: '/reports/executive'
+      preLoaderRoute: typeof ReportsExecutiveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gis/yield': {
@@ -497,6 +617,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  DataRoute: DataRoute,
+  SettingsRoute: SettingsRoute,
   DronesEquipmentRoute: DronesEquipmentRoute,
   DronesLogsRoute: DronesLogsRoute,
   DronesMissionsRoute: DronesMissionsRoute,
@@ -513,6 +636,9 @@ const rootRouteChildren: RootRouteChildren = {
   GisNdviRoute: GisNdviRoute,
   GisTerrainRoute: GisTerrainRoute,
   GisYieldRoute: GisYieldRoute,
+  ReportsExecutiveRoute: ReportsExecutiveRoute,
+  ReportsFarmRoute: ReportsFarmRoute,
+  ReportsWorkforceRoute: ReportsWorkforceRoute,
   WorkforceAnalyticsRoute: WorkforceAnalyticsRoute,
   WorkforceAttendanceRoute: WorkforceAttendanceRoute,
   WorkforceFormsRoute: WorkforceFormsRoute,
