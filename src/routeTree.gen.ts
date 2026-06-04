@@ -28,6 +28,10 @@ import { Route as FarmOverviewRouteImport } from './routes/farm.overview'
 import { Route as FarmHistoryRouteImport } from './routes/farm.history'
 import { Route as FarmHealthRouteImport } from './routes/farm.health'
 import { Route as FarmGrowthRouteImport } from './routes/farm.growth'
+import { Route as DronesSurveysRouteImport } from './routes/drones.surveys'
+import { Route as DronesMissionsRouteImport } from './routes/drones.missions'
+import { Route as DronesLogsRouteImport } from './routes/drones.logs'
+import { Route as DronesEquipmentRouteImport } from './routes/drones.equipment'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -124,9 +128,33 @@ const FarmGrowthRoute = FarmGrowthRouteImport.update({
   path: '/farm/growth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DronesSurveysRoute = DronesSurveysRouteImport.update({
+  id: '/drones/surveys',
+  path: '/drones/surveys',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DronesMissionsRoute = DronesMissionsRouteImport.update({
+  id: '/drones/missions',
+  path: '/drones/missions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DronesLogsRoute = DronesLogsRouteImport.update({
+  id: '/drones/logs',
+  path: '/drones/logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DronesEquipmentRoute = DronesEquipmentRouteImport.update({
+  id: '/drones/equipment',
+  path: '/drones/equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/drones/equipment': typeof DronesEquipmentRoute
+  '/drones/logs': typeof DronesLogsRoute
+  '/drones/missions': typeof DronesMissionsRoute
+  '/drones/surveys': typeof DronesSurveysRoute
   '/farm/growth': typeof FarmGrowthRoute
   '/farm/health': typeof FarmHealthRoute
   '/farm/history': typeof FarmHistoryRoute
@@ -148,6 +176,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/drones/equipment': typeof DronesEquipmentRoute
+  '/drones/logs': typeof DronesLogsRoute
+  '/drones/missions': typeof DronesMissionsRoute
+  '/drones/surveys': typeof DronesSurveysRoute
   '/farm/growth': typeof FarmGrowthRoute
   '/farm/health': typeof FarmHealthRoute
   '/farm/history': typeof FarmHistoryRoute
@@ -170,6 +202,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/drones/equipment': typeof DronesEquipmentRoute
+  '/drones/logs': typeof DronesLogsRoute
+  '/drones/missions': typeof DronesMissionsRoute
+  '/drones/surveys': typeof DronesSurveysRoute
   '/farm/growth': typeof FarmGrowthRoute
   '/farm/health': typeof FarmHealthRoute
   '/farm/history': typeof FarmHistoryRoute
@@ -193,6 +229,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/drones/equipment'
+    | '/drones/logs'
+    | '/drones/missions'
+    | '/drones/surveys'
     | '/farm/growth'
     | '/farm/health'
     | '/farm/history'
@@ -214,6 +254,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/drones/equipment'
+    | '/drones/logs'
+    | '/drones/missions'
+    | '/drones/surveys'
     | '/farm/growth'
     | '/farm/health'
     | '/farm/history'
@@ -235,6 +279,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/drones/equipment'
+    | '/drones/logs'
+    | '/drones/missions'
+    | '/drones/surveys'
     | '/farm/growth'
     | '/farm/health'
     | '/farm/history'
@@ -257,6 +305,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DronesEquipmentRoute: typeof DronesEquipmentRoute
+  DronesLogsRoute: typeof DronesLogsRoute
+  DronesMissionsRoute: typeof DronesMissionsRoute
+  DronesSurveysRoute: typeof DronesSurveysRoute
   FarmGrowthRoute: typeof FarmGrowthRoute
   FarmHealthRoute: typeof FarmHealthRoute
   FarmHistoryRoute: typeof FarmHistoryRoute
@@ -412,11 +464,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FarmGrowthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/drones/surveys': {
+      id: '/drones/surveys'
+      path: '/drones/surveys'
+      fullPath: '/drones/surveys'
+      preLoaderRoute: typeof DronesSurveysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drones/missions': {
+      id: '/drones/missions'
+      path: '/drones/missions'
+      fullPath: '/drones/missions'
+      preLoaderRoute: typeof DronesMissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drones/logs': {
+      id: '/drones/logs'
+      path: '/drones/logs'
+      fullPath: '/drones/logs'
+      preLoaderRoute: typeof DronesLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drones/equipment': {
+      id: '/drones/equipment'
+      path: '/drones/equipment'
+      fullPath: '/drones/equipment'
+      preLoaderRoute: typeof DronesEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DronesEquipmentRoute: DronesEquipmentRoute,
+  DronesLogsRoute: DronesLogsRoute,
+  DronesMissionsRoute: DronesMissionsRoute,
+  DronesSurveysRoute: DronesSurveysRoute,
   FarmGrowthRoute: FarmGrowthRoute,
   FarmHealthRoute: FarmHealthRoute,
   FarmHistoryRoute: FarmHistoryRoute,
