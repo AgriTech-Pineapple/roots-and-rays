@@ -10,6 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GisYieldRouteImport } from './routes/gis.yield'
+import { Route as GisTerrainRouteImport } from './routes/gis.terrain'
+import { Route as GisNdviRouteImport } from './routes/gis.ndvi'
+import { Route as GisNdreRouteImport } from './routes/gis.ndre'
+import { Route as GisMapRouteImport } from './routes/gis.map'
+import { Route as GisHealthRouteImport } from './routes/gis.health'
 import { Route as FarmYieldRouteImport } from './routes/farm.yield'
 import { Route as FarmPlantsRouteImport } from './routes/farm.plants'
 import { Route as FarmOverviewRouteImport } from './routes/farm.overview'
@@ -20,6 +26,36 @@ import { Route as FarmGrowthRouteImport } from './routes/farm.growth'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisYieldRoute = GisYieldRouteImport.update({
+  id: '/gis/yield',
+  path: '/gis/yield',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisTerrainRoute = GisTerrainRouteImport.update({
+  id: '/gis/terrain',
+  path: '/gis/terrain',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisNdviRoute = GisNdviRouteImport.update({
+  id: '/gis/ndvi',
+  path: '/gis/ndvi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisNdreRoute = GisNdreRouteImport.update({
+  id: '/gis/ndre',
+  path: '/gis/ndre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisMapRoute = GisMapRouteImport.update({
+  id: '/gis/map',
+  path: '/gis/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisHealthRoute = GisHealthRouteImport.update({
+  id: '/gis/health',
+  path: '/gis/health',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FarmYieldRoute = FarmYieldRouteImport.update({
@@ -61,6 +97,12 @@ export interface FileRoutesByFullPath {
   '/farm/overview': typeof FarmOverviewRoute
   '/farm/plants': typeof FarmPlantsRoute
   '/farm/yield': typeof FarmYieldRoute
+  '/gis/health': typeof GisHealthRoute
+  '/gis/map': typeof GisMapRoute
+  '/gis/ndre': typeof GisNdreRoute
+  '/gis/ndvi': typeof GisNdviRoute
+  '/gis/terrain': typeof GisTerrainRoute
+  '/gis/yield': typeof GisYieldRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +112,12 @@ export interface FileRoutesByTo {
   '/farm/overview': typeof FarmOverviewRoute
   '/farm/plants': typeof FarmPlantsRoute
   '/farm/yield': typeof FarmYieldRoute
+  '/gis/health': typeof GisHealthRoute
+  '/gis/map': typeof GisMapRoute
+  '/gis/ndre': typeof GisNdreRoute
+  '/gis/ndvi': typeof GisNdviRoute
+  '/gis/terrain': typeof GisTerrainRoute
+  '/gis/yield': typeof GisYieldRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +128,12 @@ export interface FileRoutesById {
   '/farm/overview': typeof FarmOverviewRoute
   '/farm/plants': typeof FarmPlantsRoute
   '/farm/yield': typeof FarmYieldRoute
+  '/gis/health': typeof GisHealthRoute
+  '/gis/map': typeof GisMapRoute
+  '/gis/ndre': typeof GisNdreRoute
+  '/gis/ndvi': typeof GisNdviRoute
+  '/gis/terrain': typeof GisTerrainRoute
+  '/gis/yield': typeof GisYieldRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +145,12 @@ export interface FileRouteTypes {
     | '/farm/overview'
     | '/farm/plants'
     | '/farm/yield'
+    | '/gis/health'
+    | '/gis/map'
+    | '/gis/ndre'
+    | '/gis/ndvi'
+    | '/gis/terrain'
+    | '/gis/yield'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +160,12 @@ export interface FileRouteTypes {
     | '/farm/overview'
     | '/farm/plants'
     | '/farm/yield'
+    | '/gis/health'
+    | '/gis/map'
+    | '/gis/ndre'
+    | '/gis/ndvi'
+    | '/gis/terrain'
+    | '/gis/yield'
   id:
     | '__root__'
     | '/'
@@ -109,6 +175,12 @@ export interface FileRouteTypes {
     | '/farm/overview'
     | '/farm/plants'
     | '/farm/yield'
+    | '/gis/health'
+    | '/gis/map'
+    | '/gis/ndre'
+    | '/gis/ndvi'
+    | '/gis/terrain'
+    | '/gis/yield'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +191,12 @@ export interface RootRouteChildren {
   FarmOverviewRoute: typeof FarmOverviewRoute
   FarmPlantsRoute: typeof FarmPlantsRoute
   FarmYieldRoute: typeof FarmYieldRoute
+  GisHealthRoute: typeof GisHealthRoute
+  GisMapRoute: typeof GisMapRoute
+  GisNdreRoute: typeof GisNdreRoute
+  GisNdviRoute: typeof GisNdviRoute
+  GisTerrainRoute: typeof GisTerrainRoute
+  GisYieldRoute: typeof GisYieldRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -128,6 +206,48 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/yield': {
+      id: '/gis/yield'
+      path: '/gis/yield'
+      fullPath: '/gis/yield'
+      preLoaderRoute: typeof GisYieldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/terrain': {
+      id: '/gis/terrain'
+      path: '/gis/terrain'
+      fullPath: '/gis/terrain'
+      preLoaderRoute: typeof GisTerrainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/ndvi': {
+      id: '/gis/ndvi'
+      path: '/gis/ndvi'
+      fullPath: '/gis/ndvi'
+      preLoaderRoute: typeof GisNdviRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/ndre': {
+      id: '/gis/ndre'
+      path: '/gis/ndre'
+      fullPath: '/gis/ndre'
+      preLoaderRoute: typeof GisNdreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/map': {
+      id: '/gis/map'
+      path: '/gis/map'
+      fullPath: '/gis/map'
+      preLoaderRoute: typeof GisMapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/health': {
+      id: '/gis/health'
+      path: '/gis/health'
+      fullPath: '/gis/health'
+      preLoaderRoute: typeof GisHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/farm/yield': {
@@ -183,7 +303,23 @@ const rootRouteChildren: RootRouteChildren = {
   FarmOverviewRoute: FarmOverviewRoute,
   FarmPlantsRoute: FarmPlantsRoute,
   FarmYieldRoute: FarmYieldRoute,
+  GisHealthRoute: GisHealthRoute,
+  GisMapRoute: GisMapRoute,
+  GisNdreRoute: GisNdreRoute,
+  GisNdviRoute: GisNdviRoute,
+  GisTerrainRoute: GisTerrainRoute,
+  GisYieldRoute: GisYieldRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
