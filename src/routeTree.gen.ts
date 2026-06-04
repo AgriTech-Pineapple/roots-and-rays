@@ -10,6 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkforceWorkersRouteImport } from './routes/workforce.workers'
+import { Route as WorkforceTeamsRouteImport } from './routes/workforce.teams'
+import { Route as WorkforceTasksRouteImport } from './routes/workforce.tasks'
+import { Route as WorkforceFormsRouteImport } from './routes/workforce.forms'
+import { Route as WorkforceAttendanceRouteImport } from './routes/workforce.attendance'
+import { Route as WorkforceAnalyticsRouteImport } from './routes/workforce.analytics'
 import { Route as GisYieldRouteImport } from './routes/gis.yield'
 import { Route as GisTerrainRouteImport } from './routes/gis.terrain'
 import { Route as GisNdviRouteImport } from './routes/gis.ndvi'
@@ -26,6 +32,36 @@ import { Route as FarmGrowthRouteImport } from './routes/farm.growth'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceWorkersRoute = WorkforceWorkersRouteImport.update({
+  id: '/workforce/workers',
+  path: '/workforce/workers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceTeamsRoute = WorkforceTeamsRouteImport.update({
+  id: '/workforce/teams',
+  path: '/workforce/teams',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceTasksRoute = WorkforceTasksRouteImport.update({
+  id: '/workforce/tasks',
+  path: '/workforce/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceFormsRoute = WorkforceFormsRouteImport.update({
+  id: '/workforce/forms',
+  path: '/workforce/forms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceAttendanceRoute = WorkforceAttendanceRouteImport.update({
+  id: '/workforce/attendance',
+  path: '/workforce/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceAnalyticsRoute = WorkforceAnalyticsRouteImport.update({
+  id: '/workforce/analytics',
+  path: '/workforce/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GisYieldRoute = GisYieldRouteImport.update({
@@ -103,6 +139,12 @@ export interface FileRoutesByFullPath {
   '/gis/ndvi': typeof GisNdviRoute
   '/gis/terrain': typeof GisTerrainRoute
   '/gis/yield': typeof GisYieldRoute
+  '/workforce/analytics': typeof WorkforceAnalyticsRoute
+  '/workforce/attendance': typeof WorkforceAttendanceRoute
+  '/workforce/forms': typeof WorkforceFormsRoute
+  '/workforce/tasks': typeof WorkforceTasksRoute
+  '/workforce/teams': typeof WorkforceTeamsRoute
+  '/workforce/workers': typeof WorkforceWorkersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +160,12 @@ export interface FileRoutesByTo {
   '/gis/ndvi': typeof GisNdviRoute
   '/gis/terrain': typeof GisTerrainRoute
   '/gis/yield': typeof GisYieldRoute
+  '/workforce/analytics': typeof WorkforceAnalyticsRoute
+  '/workforce/attendance': typeof WorkforceAttendanceRoute
+  '/workforce/forms': typeof WorkforceFormsRoute
+  '/workforce/tasks': typeof WorkforceTasksRoute
+  '/workforce/teams': typeof WorkforceTeamsRoute
+  '/workforce/workers': typeof WorkforceWorkersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +182,12 @@ export interface FileRoutesById {
   '/gis/ndvi': typeof GisNdviRoute
   '/gis/terrain': typeof GisTerrainRoute
   '/gis/yield': typeof GisYieldRoute
+  '/workforce/analytics': typeof WorkforceAnalyticsRoute
+  '/workforce/attendance': typeof WorkforceAttendanceRoute
+  '/workforce/forms': typeof WorkforceFormsRoute
+  '/workforce/tasks': typeof WorkforceTasksRoute
+  '/workforce/teams': typeof WorkforceTeamsRoute
+  '/workforce/workers': typeof WorkforceWorkersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +205,12 @@ export interface FileRouteTypes {
     | '/gis/ndvi'
     | '/gis/terrain'
     | '/gis/yield'
+    | '/workforce/analytics'
+    | '/workforce/attendance'
+    | '/workforce/forms'
+    | '/workforce/tasks'
+    | '/workforce/teams'
+    | '/workforce/workers'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +226,12 @@ export interface FileRouteTypes {
     | '/gis/ndvi'
     | '/gis/terrain'
     | '/gis/yield'
+    | '/workforce/analytics'
+    | '/workforce/attendance'
+    | '/workforce/forms'
+    | '/workforce/tasks'
+    | '/workforce/teams'
+    | '/workforce/workers'
   id:
     | '__root__'
     | '/'
@@ -181,6 +247,12 @@ export interface FileRouteTypes {
     | '/gis/ndvi'
     | '/gis/terrain'
     | '/gis/yield'
+    | '/workforce/analytics'
+    | '/workforce/attendance'
+    | '/workforce/forms'
+    | '/workforce/tasks'
+    | '/workforce/teams'
+    | '/workforce/workers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -197,6 +269,12 @@ export interface RootRouteChildren {
   GisNdviRoute: typeof GisNdviRoute
   GisTerrainRoute: typeof GisTerrainRoute
   GisYieldRoute: typeof GisYieldRoute
+  WorkforceAnalyticsRoute: typeof WorkforceAnalyticsRoute
+  WorkforceAttendanceRoute: typeof WorkforceAttendanceRoute
+  WorkforceFormsRoute: typeof WorkforceFormsRoute
+  WorkforceTasksRoute: typeof WorkforceTasksRoute
+  WorkforceTeamsRoute: typeof WorkforceTeamsRoute
+  WorkforceWorkersRoute: typeof WorkforceWorkersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -206,6 +284,48 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/workers': {
+      id: '/workforce/workers'
+      path: '/workforce/workers'
+      fullPath: '/workforce/workers'
+      preLoaderRoute: typeof WorkforceWorkersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/teams': {
+      id: '/workforce/teams'
+      path: '/workforce/teams'
+      fullPath: '/workforce/teams'
+      preLoaderRoute: typeof WorkforceTeamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/tasks': {
+      id: '/workforce/tasks'
+      path: '/workforce/tasks'
+      fullPath: '/workforce/tasks'
+      preLoaderRoute: typeof WorkforceTasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/forms': {
+      id: '/workforce/forms'
+      path: '/workforce/forms'
+      fullPath: '/workforce/forms'
+      preLoaderRoute: typeof WorkforceFormsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/attendance': {
+      id: '/workforce/attendance'
+      path: '/workforce/attendance'
+      fullPath: '/workforce/attendance'
+      preLoaderRoute: typeof WorkforceAttendanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/analytics': {
+      id: '/workforce/analytics'
+      path: '/workforce/analytics'
+      fullPath: '/workforce/analytics'
+      preLoaderRoute: typeof WorkforceAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gis/yield': {
@@ -309,6 +429,12 @@ const rootRouteChildren: RootRouteChildren = {
   GisNdviRoute: GisNdviRoute,
   GisTerrainRoute: GisTerrainRoute,
   GisYieldRoute: GisYieldRoute,
+  WorkforceAnalyticsRoute: WorkforceAnalyticsRoute,
+  WorkforceAttendanceRoute: WorkforceAttendanceRoute,
+  WorkforceFormsRoute: WorkforceFormsRoute,
+  WorkforceTasksRoute: WorkforceTasksRoute,
+  WorkforceTeamsRoute: WorkforceTeamsRoute,
+  WorkforceWorkersRoute: WorkforceWorkersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
