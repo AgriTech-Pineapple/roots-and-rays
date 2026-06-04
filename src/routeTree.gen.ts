@@ -9,38 +9,427 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as DataRouteImport } from './routes/data'
+import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkforceWorkersRouteImport } from './routes/workforce.workers'
+import { Route as WorkforceTeamsRouteImport } from './routes/workforce.teams'
+import { Route as WorkforceTasksRouteImport } from './routes/workforce.tasks'
+import { Route as WorkforceFormsRouteImport } from './routes/workforce.forms'
+import { Route as WorkforceAttendanceRouteImport } from './routes/workforce.attendance'
+import { Route as WorkforceAnalyticsRouteImport } from './routes/workforce.analytics'
+import { Route as ReportsWorkforceRouteImport } from './routes/reports.workforce'
+import { Route as ReportsFarmRouteImport } from './routes/reports.farm'
+import { Route as ReportsExecutiveRouteImport } from './routes/reports.executive'
+import { Route as GisYieldRouteImport } from './routes/gis.yield'
+import { Route as GisTerrainRouteImport } from './routes/gis.terrain'
+import { Route as GisNdviRouteImport } from './routes/gis.ndvi'
+import { Route as GisNdreRouteImport } from './routes/gis.ndre'
+import { Route as GisMapRouteImport } from './routes/gis.map'
+import { Route as GisHealthRouteImport } from './routes/gis.health'
+import { Route as FarmYieldRouteImport } from './routes/farm.yield'
+import { Route as FarmPlantsRouteImport } from './routes/farm.plants'
+import { Route as FarmOverviewRouteImport } from './routes/farm.overview'
+import { Route as FarmHistoryRouteImport } from './routes/farm.history'
+import { Route as FarmHealthRouteImport } from './routes/farm.health'
+import { Route as FarmGrowthRouteImport } from './routes/farm.growth'
+import { Route as DronesSurveysRouteImport } from './routes/drones.surveys'
+import { Route as DronesMissionsRouteImport } from './routes/drones.missions'
+import { Route as DronesLogsRouteImport } from './routes/drones.logs'
+import { Route as DronesEquipmentRouteImport } from './routes/drones.equipment'
 
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataRoute = DataRouteImport.update({
+  id: '/data',
+  path: '/data',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkforceWorkersRoute = WorkforceWorkersRouteImport.update({
+  id: '/workforce/workers',
+  path: '/workforce/workers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceTeamsRoute = WorkforceTeamsRouteImport.update({
+  id: '/workforce/teams',
+  path: '/workforce/teams',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceTasksRoute = WorkforceTasksRouteImport.update({
+  id: '/workforce/tasks',
+  path: '/workforce/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceFormsRoute = WorkforceFormsRouteImport.update({
+  id: '/workforce/forms',
+  path: '/workforce/forms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceAttendanceRoute = WorkforceAttendanceRouteImport.update({
+  id: '/workforce/attendance',
+  path: '/workforce/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceAnalyticsRoute = WorkforceAnalyticsRouteImport.update({
+  id: '/workforce/analytics',
+  path: '/workforce/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsWorkforceRoute = ReportsWorkforceRouteImport.update({
+  id: '/reports/workforce',
+  path: '/reports/workforce',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsFarmRoute = ReportsFarmRouteImport.update({
+  id: '/reports/farm',
+  path: '/reports/farm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsExecutiveRoute = ReportsExecutiveRouteImport.update({
+  id: '/reports/executive',
+  path: '/reports/executive',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisYieldRoute = GisYieldRouteImport.update({
+  id: '/gis/yield',
+  path: '/gis/yield',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisTerrainRoute = GisTerrainRouteImport.update({
+  id: '/gis/terrain',
+  path: '/gis/terrain',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisNdviRoute = GisNdviRouteImport.update({
+  id: '/gis/ndvi',
+  path: '/gis/ndvi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisNdreRoute = GisNdreRouteImport.update({
+  id: '/gis/ndre',
+  path: '/gis/ndre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisMapRoute = GisMapRouteImport.update({
+  id: '/gis/map',
+  path: '/gis/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GisHealthRoute = GisHealthRouteImport.update({
+  id: '/gis/health',
+  path: '/gis/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmYieldRoute = FarmYieldRouteImport.update({
+  id: '/farm/yield',
+  path: '/farm/yield',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmPlantsRoute = FarmPlantsRouteImport.update({
+  id: '/farm/plants',
+  path: '/farm/plants',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmOverviewRoute = FarmOverviewRouteImport.update({
+  id: '/farm/overview',
+  path: '/farm/overview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmHistoryRoute = FarmHistoryRouteImport.update({
+  id: '/farm/history',
+  path: '/farm/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmHealthRoute = FarmHealthRouteImport.update({
+  id: '/farm/health',
+  path: '/farm/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmGrowthRoute = FarmGrowthRouteImport.update({
+  id: '/farm/growth',
+  path: '/farm/growth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DronesSurveysRoute = DronesSurveysRouteImport.update({
+  id: '/drones/surveys',
+  path: '/drones/surveys',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DronesMissionsRoute = DronesMissionsRouteImport.update({
+  id: '/drones/missions',
+  path: '/drones/missions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DronesLogsRoute = DronesLogsRouteImport.update({
+  id: '/drones/logs',
+  path: '/drones/logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DronesEquipmentRoute = DronesEquipmentRouteImport.update({
+  id: '/drones/equipment',
+  path: '/drones/equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/data': typeof DataRoute
+  '/settings': typeof SettingsRoute
+  '/drones/equipment': typeof DronesEquipmentRoute
+  '/drones/logs': typeof DronesLogsRoute
+  '/drones/missions': typeof DronesMissionsRoute
+  '/drones/surveys': typeof DronesSurveysRoute
+  '/farm/growth': typeof FarmGrowthRoute
+  '/farm/health': typeof FarmHealthRoute
+  '/farm/history': typeof FarmHistoryRoute
+  '/farm/overview': typeof FarmOverviewRoute
+  '/farm/plants': typeof FarmPlantsRoute
+  '/farm/yield': typeof FarmYieldRoute
+  '/gis/health': typeof GisHealthRoute
+  '/gis/map': typeof GisMapRoute
+  '/gis/ndre': typeof GisNdreRoute
+  '/gis/ndvi': typeof GisNdviRoute
+  '/gis/terrain': typeof GisTerrainRoute
+  '/gis/yield': typeof GisYieldRoute
+  '/reports/executive': typeof ReportsExecutiveRoute
+  '/reports/farm': typeof ReportsFarmRoute
+  '/reports/workforce': typeof ReportsWorkforceRoute
+  '/workforce/analytics': typeof WorkforceAnalyticsRoute
+  '/workforce/attendance': typeof WorkforceAttendanceRoute
+  '/workforce/forms': typeof WorkforceFormsRoute
+  '/workforce/tasks': typeof WorkforceTasksRoute
+  '/workforce/teams': typeof WorkforceTeamsRoute
+  '/workforce/workers': typeof WorkforceWorkersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/data': typeof DataRoute
+  '/settings': typeof SettingsRoute
+  '/drones/equipment': typeof DronesEquipmentRoute
+  '/drones/logs': typeof DronesLogsRoute
+  '/drones/missions': typeof DronesMissionsRoute
+  '/drones/surveys': typeof DronesSurveysRoute
+  '/farm/growth': typeof FarmGrowthRoute
+  '/farm/health': typeof FarmHealthRoute
+  '/farm/history': typeof FarmHistoryRoute
+  '/farm/overview': typeof FarmOverviewRoute
+  '/farm/plants': typeof FarmPlantsRoute
+  '/farm/yield': typeof FarmYieldRoute
+  '/gis/health': typeof GisHealthRoute
+  '/gis/map': typeof GisMapRoute
+  '/gis/ndre': typeof GisNdreRoute
+  '/gis/ndvi': typeof GisNdviRoute
+  '/gis/terrain': typeof GisTerrainRoute
+  '/gis/yield': typeof GisYieldRoute
+  '/reports/executive': typeof ReportsExecutiveRoute
+  '/reports/farm': typeof ReportsFarmRoute
+  '/reports/workforce': typeof ReportsWorkforceRoute
+  '/workforce/analytics': typeof WorkforceAnalyticsRoute
+  '/workforce/attendance': typeof WorkforceAttendanceRoute
+  '/workforce/forms': typeof WorkforceFormsRoute
+  '/workforce/tasks': typeof WorkforceTasksRoute
+  '/workforce/teams': typeof WorkforceTeamsRoute
+  '/workforce/workers': typeof WorkforceWorkersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/data': typeof DataRoute
+  '/settings': typeof SettingsRoute
+  '/drones/equipment': typeof DronesEquipmentRoute
+  '/drones/logs': typeof DronesLogsRoute
+  '/drones/missions': typeof DronesMissionsRoute
+  '/drones/surveys': typeof DronesSurveysRoute
+  '/farm/growth': typeof FarmGrowthRoute
+  '/farm/health': typeof FarmHealthRoute
+  '/farm/history': typeof FarmHistoryRoute
+  '/farm/overview': typeof FarmOverviewRoute
+  '/farm/plants': typeof FarmPlantsRoute
+  '/farm/yield': typeof FarmYieldRoute
+  '/gis/health': typeof GisHealthRoute
+  '/gis/map': typeof GisMapRoute
+  '/gis/ndre': typeof GisNdreRoute
+  '/gis/ndvi': typeof GisNdviRoute
+  '/gis/terrain': typeof GisTerrainRoute
+  '/gis/yield': typeof GisYieldRoute
+  '/reports/executive': typeof ReportsExecutiveRoute
+  '/reports/farm': typeof ReportsFarmRoute
+  '/reports/workforce': typeof ReportsWorkforceRoute
+  '/workforce/analytics': typeof WorkforceAnalyticsRoute
+  '/workforce/attendance': typeof WorkforceAttendanceRoute
+  '/workforce/forms': typeof WorkforceFormsRoute
+  '/workforce/tasks': typeof WorkforceTasksRoute
+  '/workforce/teams': typeof WorkforceTeamsRoute
+  '/workforce/workers': typeof WorkforceWorkersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/alerts'
+    | '/data'
+    | '/settings'
+    | '/drones/equipment'
+    | '/drones/logs'
+    | '/drones/missions'
+    | '/drones/surveys'
+    | '/farm/growth'
+    | '/farm/health'
+    | '/farm/history'
+    | '/farm/overview'
+    | '/farm/plants'
+    | '/farm/yield'
+    | '/gis/health'
+    | '/gis/map'
+    | '/gis/ndre'
+    | '/gis/ndvi'
+    | '/gis/terrain'
+    | '/gis/yield'
+    | '/reports/executive'
+    | '/reports/farm'
+    | '/reports/workforce'
+    | '/workforce/analytics'
+    | '/workforce/attendance'
+    | '/workforce/forms'
+    | '/workforce/tasks'
+    | '/workforce/teams'
+    | '/workforce/workers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/alerts'
+    | '/data'
+    | '/settings'
+    | '/drones/equipment'
+    | '/drones/logs'
+    | '/drones/missions'
+    | '/drones/surveys'
+    | '/farm/growth'
+    | '/farm/health'
+    | '/farm/history'
+    | '/farm/overview'
+    | '/farm/plants'
+    | '/farm/yield'
+    | '/gis/health'
+    | '/gis/map'
+    | '/gis/ndre'
+    | '/gis/ndvi'
+    | '/gis/terrain'
+    | '/gis/yield'
+    | '/reports/executive'
+    | '/reports/farm'
+    | '/reports/workforce'
+    | '/workforce/analytics'
+    | '/workforce/attendance'
+    | '/workforce/forms'
+    | '/workforce/tasks'
+    | '/workforce/teams'
+    | '/workforce/workers'
+  id:
+    | '__root__'
+    | '/'
+    | '/alerts'
+    | '/data'
+    | '/settings'
+    | '/drones/equipment'
+    | '/drones/logs'
+    | '/drones/missions'
+    | '/drones/surveys'
+    | '/farm/growth'
+    | '/farm/health'
+    | '/farm/history'
+    | '/farm/overview'
+    | '/farm/plants'
+    | '/farm/yield'
+    | '/gis/health'
+    | '/gis/map'
+    | '/gis/ndre'
+    | '/gis/ndvi'
+    | '/gis/terrain'
+    | '/gis/yield'
+    | '/reports/executive'
+    | '/reports/farm'
+    | '/reports/workforce'
+    | '/workforce/analytics'
+    | '/workforce/attendance'
+    | '/workforce/forms'
+    | '/workforce/tasks'
+    | '/workforce/teams'
+    | '/workforce/workers'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  DataRoute: typeof DataRoute
+  SettingsRoute: typeof SettingsRoute
+  DronesEquipmentRoute: typeof DronesEquipmentRoute
+  DronesLogsRoute: typeof DronesLogsRoute
+  DronesMissionsRoute: typeof DronesMissionsRoute
+  DronesSurveysRoute: typeof DronesSurveysRoute
+  FarmGrowthRoute: typeof FarmGrowthRoute
+  FarmHealthRoute: typeof FarmHealthRoute
+  FarmHistoryRoute: typeof FarmHistoryRoute
+  FarmOverviewRoute: typeof FarmOverviewRoute
+  FarmPlantsRoute: typeof FarmPlantsRoute
+  FarmYieldRoute: typeof FarmYieldRoute
+  GisHealthRoute: typeof GisHealthRoute
+  GisMapRoute: typeof GisMapRoute
+  GisNdreRoute: typeof GisNdreRoute
+  GisNdviRoute: typeof GisNdviRoute
+  GisTerrainRoute: typeof GisTerrainRoute
+  GisYieldRoute: typeof GisYieldRoute
+  ReportsExecutiveRoute: typeof ReportsExecutiveRoute
+  ReportsFarmRoute: typeof ReportsFarmRoute
+  ReportsWorkforceRoute: typeof ReportsWorkforceRoute
+  WorkforceAnalyticsRoute: typeof WorkforceAnalyticsRoute
+  WorkforceAttendanceRoute: typeof WorkforceAttendanceRoute
+  WorkforceFormsRoute: typeof WorkforceFormsRoute
+  WorkforceTasksRoute: typeof WorkforceTasksRoute
+  WorkforceTeamsRoute: typeof WorkforceTeamsRoute
+  WorkforceWorkersRoute: typeof WorkforceWorkersRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/data': {
+      id: '/data'
+      path: '/data'
+      fullPath: '/data'
+      preLoaderRoute: typeof DataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +437,215 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/workforce/workers': {
+      id: '/workforce/workers'
+      path: '/workforce/workers'
+      fullPath: '/workforce/workers'
+      preLoaderRoute: typeof WorkforceWorkersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/teams': {
+      id: '/workforce/teams'
+      path: '/workforce/teams'
+      fullPath: '/workforce/teams'
+      preLoaderRoute: typeof WorkforceTeamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/tasks': {
+      id: '/workforce/tasks'
+      path: '/workforce/tasks'
+      fullPath: '/workforce/tasks'
+      preLoaderRoute: typeof WorkforceTasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/forms': {
+      id: '/workforce/forms'
+      path: '/workforce/forms'
+      fullPath: '/workforce/forms'
+      preLoaderRoute: typeof WorkforceFormsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/attendance': {
+      id: '/workforce/attendance'
+      path: '/workforce/attendance'
+      fullPath: '/workforce/attendance'
+      preLoaderRoute: typeof WorkforceAttendanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/analytics': {
+      id: '/workforce/analytics'
+      path: '/workforce/analytics'
+      fullPath: '/workforce/analytics'
+      preLoaderRoute: typeof WorkforceAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports/workforce': {
+      id: '/reports/workforce'
+      path: '/reports/workforce'
+      fullPath: '/reports/workforce'
+      preLoaderRoute: typeof ReportsWorkforceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports/farm': {
+      id: '/reports/farm'
+      path: '/reports/farm'
+      fullPath: '/reports/farm'
+      preLoaderRoute: typeof ReportsFarmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports/executive': {
+      id: '/reports/executive'
+      path: '/reports/executive'
+      fullPath: '/reports/executive'
+      preLoaderRoute: typeof ReportsExecutiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/yield': {
+      id: '/gis/yield'
+      path: '/gis/yield'
+      fullPath: '/gis/yield'
+      preLoaderRoute: typeof GisYieldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/terrain': {
+      id: '/gis/terrain'
+      path: '/gis/terrain'
+      fullPath: '/gis/terrain'
+      preLoaderRoute: typeof GisTerrainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/ndvi': {
+      id: '/gis/ndvi'
+      path: '/gis/ndvi'
+      fullPath: '/gis/ndvi'
+      preLoaderRoute: typeof GisNdviRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/ndre': {
+      id: '/gis/ndre'
+      path: '/gis/ndre'
+      fullPath: '/gis/ndre'
+      preLoaderRoute: typeof GisNdreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/map': {
+      id: '/gis/map'
+      path: '/gis/map'
+      fullPath: '/gis/map'
+      preLoaderRoute: typeof GisMapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gis/health': {
+      id: '/gis/health'
+      path: '/gis/health'
+      fullPath: '/gis/health'
+      preLoaderRoute: typeof GisHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/yield': {
+      id: '/farm/yield'
+      path: '/farm/yield'
+      fullPath: '/farm/yield'
+      preLoaderRoute: typeof FarmYieldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/plants': {
+      id: '/farm/plants'
+      path: '/farm/plants'
+      fullPath: '/farm/plants'
+      preLoaderRoute: typeof FarmPlantsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/overview': {
+      id: '/farm/overview'
+      path: '/farm/overview'
+      fullPath: '/farm/overview'
+      preLoaderRoute: typeof FarmOverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/history': {
+      id: '/farm/history'
+      path: '/farm/history'
+      fullPath: '/farm/history'
+      preLoaderRoute: typeof FarmHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/health': {
+      id: '/farm/health'
+      path: '/farm/health'
+      fullPath: '/farm/health'
+      preLoaderRoute: typeof FarmHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farm/growth': {
+      id: '/farm/growth'
+      path: '/farm/growth'
+      fullPath: '/farm/growth'
+      preLoaderRoute: typeof FarmGrowthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drones/surveys': {
+      id: '/drones/surveys'
+      path: '/drones/surveys'
+      fullPath: '/drones/surveys'
+      preLoaderRoute: typeof DronesSurveysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drones/missions': {
+      id: '/drones/missions'
+      path: '/drones/missions'
+      fullPath: '/drones/missions'
+      preLoaderRoute: typeof DronesMissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drones/logs': {
+      id: '/drones/logs'
+      path: '/drones/logs'
+      fullPath: '/drones/logs'
+      preLoaderRoute: typeof DronesLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drones/equipment': {
+      id: '/drones/equipment'
+      path: '/drones/equipment'
+      fullPath: '/drones/equipment'
+      preLoaderRoute: typeof DronesEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  DataRoute: DataRoute,
+  SettingsRoute: SettingsRoute,
+  DronesEquipmentRoute: DronesEquipmentRoute,
+  DronesLogsRoute: DronesLogsRoute,
+  DronesMissionsRoute: DronesMissionsRoute,
+  DronesSurveysRoute: DronesSurveysRoute,
+  FarmGrowthRoute: FarmGrowthRoute,
+  FarmHealthRoute: FarmHealthRoute,
+  FarmHistoryRoute: FarmHistoryRoute,
+  FarmOverviewRoute: FarmOverviewRoute,
+  FarmPlantsRoute: FarmPlantsRoute,
+  FarmYieldRoute: FarmYieldRoute,
+  GisHealthRoute: GisHealthRoute,
+  GisMapRoute: GisMapRoute,
+  GisNdreRoute: GisNdreRoute,
+  GisNdviRoute: GisNdviRoute,
+  GisTerrainRoute: GisTerrainRoute,
+  GisYieldRoute: GisYieldRoute,
+  ReportsExecutiveRoute: ReportsExecutiveRoute,
+  ReportsFarmRoute: ReportsFarmRoute,
+  ReportsWorkforceRoute: ReportsWorkforceRoute,
+  WorkforceAnalyticsRoute: WorkforceAnalyticsRoute,
+  WorkforceAttendanceRoute: WorkforceAttendanceRoute,
+  WorkforceFormsRoute: WorkforceFormsRoute,
+  WorkforceTasksRoute: WorkforceTasksRoute,
+  WorkforceTeamsRoute: WorkforceTeamsRoute,
+  WorkforceWorkersRoute: WorkforceWorkersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
