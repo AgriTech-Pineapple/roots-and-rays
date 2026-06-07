@@ -31,42 +31,14 @@ const sections: { label: string; items: Item[] }[] = [
           { title: "Historical Monitoring", url: "/farm/history" },
         ],
       },
-      {
-        title: "GIS Mapping", url: "/gis/map", icon: Map,
-        children: [
-          { title: "Farm Map", url: "/gis/map" },
-          { title: "NDVI Layer", url: "/gis/ndvi" },
-          { title: "NDRE Layer", url: "/gis/ndre" },
-          { title: "Health Layer", url: "/gis/health" },
-          { title: "Terrain Layer", url: "/gis/terrain" },
-          { title: "Yield Layer", url: "/gis/yield" },
-        ],
-      },
+      { title: "GIS Mapping", url: "/gis/map", icon: Map },
     ],
   },
   {
     label: "Operations",
     items: [
-      {
-        title: "Workforce", url: "/workforce/workers", icon: Users,
-        children: [
-          { title: "Workers", url: "/workforce/workers" },
-          { title: "Teams", url: "/workforce/teams" },
-          { title: "Attendance", url: "/workforce/attendance" },
-          { title: "Task Forms", url: "/workforce/forms" },
-          { title: "Task Assignments", url: "/workforce/tasks" },
-          { title: "Analytics", url: "/workforce/analytics" },
-        ],
-      },
-      {
-        title: "Drone Operations", url: "/drones/missions", icon: Plane,
-        children: [
-          { title: "Missions", url: "/drones/missions" },
-          { title: "Flight Logs", url: "/drones/logs" },
-          { title: "Equipment", url: "/drones/equipment" },
-          { title: "Survey History", url: "/drones/surveys" },
-        ],
-      },
+      { title: "Workforce", url: "/workforce", icon: Users },
+      { title: "Drone Operations", url: "/drones", icon: Plane },
     ],
   },
   {
