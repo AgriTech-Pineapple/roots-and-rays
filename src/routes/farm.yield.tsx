@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { KpiCard } from "@/components/farm-ui";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useFarm } from "@/lib/farms";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 export const Route = createFileRoute("/farm/yield")({
@@ -10,19 +11,16 @@ export const Route = createFileRoute("/farm/yield")({
   component: Page,
 });
 
-const weekly = Array.from({ length: 12 }, (_, i) => ({
-  w: `W${30 + i}`, low: 52 + i * 0.6, mid: 56 + i * 0.7, high: 60 + i * 0.8,
-}));
-
 function Page() {
+  const { farm } = useFarm();
   return (
     <div className="space-y-8">
-      <PageHeader eyebrow="Farm Intelligence" title="Yield Forecast" description="AI-driven projections for the 2024/25 harvest window." />
+      <PageHeader eyebrow={`Farm Intelligence · ${farm.name}`} title="Yield Forecast" description="AI-driven projections for the current harvest window." />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KpiCard label="Season forecast" value="61.4 t/ha" hint="91% model confidence" delta="+8.7% YoY" />
-        <KpiCard label="Total tonnage" value="76,570 t" hint="estate-wide" accent="olive" />
-        <KpiCard label="Harvest window" value="Wk 38–46" hint="9-week peak" accent="harvest" />
-        <KpiCard label="Revenue projection" value="$28.4 M" hint="@ market spot" accent="clay" />
+        <KpiCard label="Season forecast" value={farm.yieldForecast} hint={`${farm.confidence} model confidence`} delta={farm.yieldDelta} />
+        <KpiCard label="Total tonnage" value={farm.totalTonnage} hint="estate-wide" accent="olive" />
+        <KpiCard label="Harvest window" value={farm.harvestWindow} hint="peak weeks" accent="harvest" />
+        <KpiCard label="Revenue projection" value={farm.revenue} hint="@ market spot" accent="clay" />
       </div>
       <Card className="p-6 border-border/60 shadow-none">
         <div className="mb-4 flex items-end justify-between">
@@ -34,7 +32,7 @@ function Page() {
         </div>
         <div className="h-72">
           <ResponsiveContainer>
-            <AreaChart data={weekly}>
+            <AreaChart data={farm.yieldBand}>
               <defs>
                 <linearGradient id="bd" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="var(--sage)" stopOpacity={0.35} /><stop offset="100%" stopColor="var(--sage)" stopOpacity={0.05} /></linearGradient>
               </defs>
@@ -51,13 +49,13 @@ function Page() {
       </Card>
       <div className="grid gap-6 md:grid-cols-3">
         {[
-          { t: "Weekly", v: "1,420 t", h: "Avg next 4 weeks" },
-          { t: "Monthly", v: "6,080 t", h: "Forecast for July" },
-          { t: "Seasonal", v: "76,570 t", h: "Total 2024/25 yield" },
+          { t: "Weekly", v: farm.weeklyYield.at(-1)!.y + " t/ha", h: "Latest week" },
+          { t: "Monthly", v: farm.totalTonnage.replace(" t", "") + " t", h: "Forecast season total" },
+          { t: "Seasonal", v: farm.yieldForecast, h: "Avg across estate" },
         ].map((x) => (
           <Card key={x.t} className="p-5 border-border/60 shadow-none">
             <p className="text-xs uppercase tracking-wider text-muted-foreground">{x.t} projection</p>
-            <p className="mt-1 font-display text-2xl font-semibold">{x.v}</p>
+            <p className="mt-1 font-num text-2xl font-semibold tabular-nums">{x.v}</p>
             <p className="text-xs text-muted-foreground">{x.h}</p>
           </Card>
         ))}

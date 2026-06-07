@@ -10,6 +10,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { TopBar } from "@/components/page-header";
+import { FarmProvider } from "@/lib/farms";
 
 function NotFoundComponent() {
   return (
@@ -87,17 +88,19 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset className="bg-background">
-          <TopBar />
-          <main className="flex-1">
-            <div className="mx-auto w-full max-w-[1400px] px-4 py-6 md:px-8 md:py-8">
-              <Outlet />
-            </div>
-          </main>
-        </SidebarInset>
-      </SidebarProvider>
+      <FarmProvider>
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarInset className="bg-background">
+            <TopBar />
+            <main className="flex-1">
+              <div className="mx-auto w-full max-w-[1400px] px-4 py-6 md:px-8 md:py-8">
+                <Outlet />
+              </div>
+            </main>
+          </SidebarInset>
+        </SidebarProvider>
+      </FarmProvider>
     </QueryClientProvider>
   );
 }
