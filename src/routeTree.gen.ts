@@ -13,6 +13,8 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as DataRouteImport } from './routes/data'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkforceIndexRouteImport } from './routes/workforce.index'
+import { Route as DronesIndexRouteImport } from './routes/drones.index'
 import { Route as WorkforceWorkersRouteImport } from './routes/workforce.workers'
 import { Route as WorkforceTeamsRouteImport } from './routes/workforce.teams'
 import { Route as WorkforceTasksRouteImport } from './routes/workforce.tasks'
@@ -57,6 +59,16 @@ const AlertsRoute = AlertsRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkforceIndexRoute = WorkforceIndexRouteImport.update({
+  id: '/workforce/',
+  path: '/workforce/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DronesIndexRoute = DronesIndexRouteImport.update({
+  id: '/drones/',
+  path: '/drones/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WorkforceWorkersRoute = WorkforceWorkersRouteImport.update({
@@ -215,6 +227,8 @@ export interface FileRoutesByFullPath {
   '/workforce/tasks': typeof WorkforceTasksRoute
   '/workforce/teams': typeof WorkforceTeamsRoute
   '/workforce/workers': typeof WorkforceWorkersRoute
+  '/drones/': typeof DronesIndexRoute
+  '/workforce/': typeof WorkforceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -246,6 +260,8 @@ export interface FileRoutesByTo {
   '/workforce/tasks': typeof WorkforceTasksRoute
   '/workforce/teams': typeof WorkforceTeamsRoute
   '/workforce/workers': typeof WorkforceWorkersRoute
+  '/drones': typeof DronesIndexRoute
+  '/workforce': typeof WorkforceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -278,6 +294,8 @@ export interface FileRoutesById {
   '/workforce/tasks': typeof WorkforceTasksRoute
   '/workforce/teams': typeof WorkforceTeamsRoute
   '/workforce/workers': typeof WorkforceWorkersRoute
+  '/drones/': typeof DronesIndexRoute
+  '/workforce/': typeof WorkforceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -311,6 +329,8 @@ export interface FileRouteTypes {
     | '/workforce/tasks'
     | '/workforce/teams'
     | '/workforce/workers'
+    | '/drones/'
+    | '/workforce/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -342,6 +362,8 @@ export interface FileRouteTypes {
     | '/workforce/tasks'
     | '/workforce/teams'
     | '/workforce/workers'
+    | '/drones'
+    | '/workforce'
   id:
     | '__root__'
     | '/'
@@ -373,6 +395,8 @@ export interface FileRouteTypes {
     | '/workforce/tasks'
     | '/workforce/teams'
     | '/workforce/workers'
+    | '/drones/'
+    | '/workforce/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -405,6 +429,8 @@ export interface RootRouteChildren {
   WorkforceTasksRoute: typeof WorkforceTasksRoute
   WorkforceTeamsRoute: typeof WorkforceTeamsRoute
   WorkforceWorkersRoute: typeof WorkforceWorkersRoute
+  DronesIndexRoute: typeof DronesIndexRoute
+  WorkforceIndexRoute: typeof WorkforceIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -435,6 +461,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workforce/': {
+      id: '/workforce/'
+      path: '/workforce'
+      fullPath: '/workforce/'
+      preLoaderRoute: typeof WorkforceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drones/': {
+      id: '/drones/'
+      path: '/drones'
+      fullPath: '/drones/'
+      preLoaderRoute: typeof DronesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/workforce/workers': {
@@ -645,6 +685,8 @@ const rootRouteChildren: RootRouteChildren = {
   WorkforceTasksRoute: WorkforceTasksRoute,
   WorkforceTeamsRoute: WorkforceTeamsRoute,
   WorkforceWorkersRoute: WorkforceWorkersRoute,
+  DronesIndexRoute: DronesIndexRoute,
+  WorkforceIndexRoute: WorkforceIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

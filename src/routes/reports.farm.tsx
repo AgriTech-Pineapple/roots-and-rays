@@ -7,8 +7,6 @@ export const Route = createFileRoute("/reports/farm")({
     <ReportsPage
       eyebrow="Reports" title="Farm Reports" description="Agronomy, health and yield reports synthesised from drone and field data."
       kpis={[
-        { label: "Reports (mo)", value: "42" },
-        { label: "Auto-generated", value: "31" },
         { label: "Pending review", value: "5", hint: "needs sign-off" },
         { label: "Exports", value: "84", hint: "this month" },
       ]}
