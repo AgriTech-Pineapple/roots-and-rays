@@ -10,6 +10,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { TopBar } from "@/components/page-header";
+import { FarmProvider } from "@/lib/farms";
 
 function NotFoundComponent() {
   return (
