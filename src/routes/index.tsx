@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, AlertCircle, MapPin, Sprout, TrendingUp } from "lucide-react";
+import { ArrowUpRight, AlertCircle, MapPin, TrendingUp } from "lucide-react";
 import { FARMS, useFarm, type FarmId } from "@/lib/farms";
 import { FieldMap } from "@/components/farm-ui";
 
