@@ -122,10 +122,10 @@ function Dashboard() {
             </div>
             <dl className="mt-4 grid grid-cols-2 gap-4">
               {[
-                ["Total area", totalArea, Sprout],
-                ["Total plants", totalPlants, Sprout],
-                ["Healthy canopy", portfolioHealth, Sprout],
-                ["Avg yield forecast", portfolioYield, Sprout],
+                ["Total area", totalArea],
+                ["Total plants", totalPlants],
+                ["Healthy canopy", portfolioHealth],
+                ["Avg yield forecast", portfolioYield],
               ].map(([k, v]) => (
                 <div key={k as string} className="rounded-lg bg-muted/30 p-3">
                   <dt className="text-[10px] uppercase tracking-wider text-muted-foreground">{k as string}</dt>
