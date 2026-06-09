@@ -64,10 +64,7 @@ function Page() {
         title="GIS Mapping"
         description="Interactive layered map of the selected estate. Switch layers to inspect vegetation indices, terrain or yield."
         actions={
-          <>
-            <Button variant="outline" size="sm">Export GeoTIFF</Button>
-            <Button size="sm" className="bg-sage-deep hover:bg-sage-deep/90">Compare dates</Button>
-          </>
+          <Button size="sm" className="bg-sage-deep hover:bg-sage-deep/90">Export GeoTIFF</Button>
         }
       />
 
