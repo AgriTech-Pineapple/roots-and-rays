@@ -5,11 +5,11 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useFarm } from "@/lib/farms";
-import { Lightbulb } from "lucide-react";
+import { Lightbulb, BookOpen } from "lucide-react";
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 export const Route = createFileRoute("/farm/health")({
-  head: () => ({ meta: [{ title: "Health Analysis — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Health Analysis — Agritech" }] }),
   component: Page,
 });
 
@@ -23,7 +23,7 @@ function Page() {
         <KpiCard label="Healthy" value={farm.kpis.health.healthyPct} hint="canopy share" delta={farm.kpis.health.ndviDelta} />
         <KpiCard label="Mild stress" value={farm.kpis.health.mild} accent="harvest" />
         <KpiCard label="Severe stress" value={farm.kpis.health.severe} accent="clay" />
-        <KpiCard label="NDVI mean" value={farm.kpis.health.ndvi} hint="last capture" accent="olive" delta={farm.kpis.health.ndviDelta} />
+        <KpiCard label="NDVI mean" value={farm.kpis.health.ndvi} hint="healthy crops sit above 0.7" accent="olive" delta={farm.kpis.health.ndviDelta} />
       </div>
 
       <Tabs defaultValue="ndvi" className="space-y-4">
@@ -80,7 +80,6 @@ function Page() {
             </div>
             <Badge variant="outline" className="font-normal text-[10px]">For {farm.name}</Badge>
           </div>
-          <p className="text-xs text-muted-foreground mb-4">Plain-language reading of the index trends, written for farm owners and managers.</p>
           <div className="space-y-4 text-sm leading-relaxed">
             {farm.interpretation.map((p, i) => (
               <p key={i} className="border-l-2 border-sage/40 pl-3 text-foreground/90">{p}</p>
@@ -88,6 +87,30 @@ function Page() {
           </div>
         </Card>
       </div>
+
+      <Card className="p-6 border-border/60 shadow-none">
+        <div className="mb-4 flex items-center gap-2">
+          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-olive/15 text-olive">
+            <BookOpen className="h-3.5 w-3.5" />
+          </div>
+          <h3 className="font-display text-lg font-semibold">What do these indices mean?</h3>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            { tag: "NDVI", title: "Greenness", body: "Measures overall plant vigor. Healthy crops usually sit between 0.7 and 0.9. Below 0.5 means the canopy is thinning or stressed." },
+            { tag: "NDRE", title: "Nitrogen & late growth", body: "Picks up subtle nitrogen issues that NDVI misses. Healthy late-stage crops are around 0.4–0.6. Falling values can mean it's time to feed." },
+            { tag: "SAVI", title: "Best for young / sparse canopies", body: "Like NDVI but adjusted for bare soil. Use it early in the season. Rising SAVI means the canopy is filling in." },
+          ].map((it) => (
+            <div key={it.tag} className="rounded-lg border border-border/60 bg-muted/20 p-4">
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary" className="bg-sage-deep text-primary-foreground border-0 font-medium">{it.tag}</Badge>
+                <span className="text-sm font-medium">{it.title}</span>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{it.body}</p>
+            </div>
+          ))}
+        </div>
+      </Card>
     </div>
   );
 }

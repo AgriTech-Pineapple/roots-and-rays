@@ -3,12 +3,12 @@ import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, AlertCircle, MapPin, TrendingUp } from "lucide-react";
-import { FARMS, useFarm, type FarmId } from "@/lib/farms";
+import { ArrowUpRight, AlertCircle, MapPin, TrendingUp, Plus } from "lucide-react";
+import { FARMS, useFarm, ACCOUNT, type FarmId } from "@/lib/farms";
 import { FieldMap } from "@/components/farm-ui";
 
 export const Route = createFileRoute("/")({
-  head: () => ({ meta: [{ title: "Dashboard — Verdant" }, { name: "description", content: "Portfolio overview across all plantations." }] }),
+  head: () => ({ meta: [{ title: "Dashboard — Agritech" }, { name: "description", content: "Portfolio overview across all plantations." }] }),
   component: Dashboard,
 });
 
@@ -21,37 +21,35 @@ function Dashboard() {
     navigate({ to: "/farm/overview" });
   };
 
-  // portfolio-wide aggregates
   const totalArea = "3,672 ha";
   const totalPlants = "8.03 M";
   const portfolioHealth = "85.5%";
   const portfolioYield = "61.7 t/ha";
 
   const portfolioRecs = [
-    { farm: "Bahía Dorada", title: "Pull harvest crew forward to Wk 36", reason: "Yield tracking 5% ahead of plan." },
-    { farm: "Valle Verde", title: "Inspect Block W-2 for mealybug wilt", reason: "Cluster of severe-stress pixels detected." },
-    { farm: "La Cordillera", title: "Reduce irrigation on Block C-3", reason: "Soil moisture 18% above target." },
+    { farm: "Farm 3", title: "Pull harvest crew forward to August", reason: "Crop ripening ahead of plan." },
+    { farm: "Farm 2", title: "Inspect Block W-2 for pest damage", reason: "Cluster of stressed plants detected." },
+    { farm: "Farm 1", title: "Reduce irrigation on Block C-3", reason: "Soil too wet after recent rain." },
   ];
 
-  const portfolioAlerts = [
-    { level: "High" as const, farm: "La Cordillera", title: "Severe stress in Block C-3", ago: "2h ago" },
-    { level: "High" as const, farm: "Valle Verde", title: "Severe stress patch in Block W-2", ago: "1h ago" },
-    { level: "Medium" as const, farm: "Bahía Dorada", title: "Salinity signature in Block BD-4", ago: "3h ago" },
-    { level: "Medium" as const, farm: "Valle Verde", title: "Sprinkler pressure low on Sector 3", ago: "4h ago" },
-    { level: "Low" as const, farm: "La Cordillera", title: "Mission MX-218 completed", ago: "1d ago" },
+  const portfolioAlerts: { level: "High" | "Medium" | "Low"; farm: string; title: string; ago: string }[] = [
+    { level: "High", farm: "Farm 1", title: "Severe stress in Block C-3", ago: "2h ago" },
+    { level: "High", farm: "Farm 2", title: "Severe stress patch in Block W-2", ago: "1h ago" },
+    { level: "Medium", farm: "Farm 3", title: "Salt stress near shore", ago: "3h ago" },
+    { level: "Medium", farm: "Farm 2", title: "Sprinkler pressure low", ago: "4h ago" },
+    { level: "Low", farm: "Farm 1", title: "Drone survey completed", ago: "1d ago" },
   ];
 
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow="Portfolio · 3 plantations"
-        title="Good afternoon, Maria"
+        eyebrow="Portfolio · 3 farms"
+        title={`Good afternoon, ${ACCOUNT.firstName}`}
         description="Pick a farm to dive in, or review portfolio-wide signals on the right."
         actions={<Button size="sm" variant="outline">Export portfolio brief</Button>}
       />
 
       <div className="grid gap-8 lg:grid-cols-[1.55fr_1fr]">
-        {/* LEFT: farm cards */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="font-display text-lg font-semibold">Your farms</h2>
@@ -81,7 +79,7 @@ function Dashboard() {
                       <Badge variant="secondary" className={`border-0 font-normal ${
                         f.accent === "sage" ? "bg-sage/15 text-sage-deep" :
                         f.accent === "olive" ? "bg-olive/15 text-olive" : "bg-harvest/25 text-clay"
-                      }`}>{f.cultivar.split(" ")[0]}</Badge>
+                      }`}>{f.crop}</Badge>
                     </div>
                     <dl className="mt-4 grid grid-cols-4 gap-3">
                       {[
@@ -108,10 +106,20 @@ function Dashboard() {
                 </div>
               </Card>
             ))}
+
+            {/* Add Farm card (half height) */}
+            <Card className="group flex cursor-pointer items-center justify-center gap-3 border-2 border-dashed border-border/70 bg-muted/20 py-6 shadow-none transition hover:border-sage-deep/50 hover:bg-muted/40">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-sage-deep/10 text-sage-deep transition group-hover:bg-sage-deep group-hover:text-primary-foreground">
+                <Plus className="h-4 w-4" />
+              </div>
+              <div className="leading-tight">
+                <p className="text-sm font-medium">Add farm</p>
+                <p className="text-xs text-muted-foreground">Connect a new plantation to the portfolio</p>
+              </div>
+            </Card>
           </div>
         </div>
 
-        {/* RIGHT: portfolio stats + alerts */}
         <div className="space-y-6">
           <Card className="p-5 border-border/60 shadow-none">
             <div className="flex items-center justify-between">

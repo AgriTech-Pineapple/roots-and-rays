@@ -6,10 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useFarm } from "@/lib/farms";
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 export const Route = createFileRoute("/farm/overview")({
-  head: () => ({ meta: [{ title: "Farm Overview — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Farm Overview — Agritech" }] }),
   component: Page,
 });
 
@@ -22,20 +22,22 @@ function Page() {
       <PageHeader
         eyebrow="Farm Intelligence"
         title={farm.name}
-        description={`${farm.subtitle} · ${farm.cultivar} · established ${farm.established} · ${farm.blocks} blocks across ${farm.area}.`}
+        description={`${farm.subtitle} · established ${farm.established} · ${farm.blocks} blocks across ${farm.area}.`}
         actions={
-          <>
-            <Button variant="outline" size="sm" onClick={() => navigate({ to: "/" })}>
+          <div className="flex flex-col items-stretch gap-2 md:w-auto md:min-w-[260px]">
+            <Button variant="outline" size="sm" onClick={() => navigate({ to: "/" })} className="w-full">
               <ArrowLeft className="mr-1.5 h-3.5 w-3.5" /> Change Farm
             </Button>
-            <Button variant="outline" size="sm">Generate report</Button>
-            <Button size="sm" className="bg-sage-deep hover:bg-sage-deep/90">Edit metadata</Button>
-          </>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="flex-1">Generate report</Button>
+              <Button size="sm" className="flex-1 bg-sage-deep hover:bg-sage-deep/90">Edit metadata</Button>
+            </div>
+          </div>
         }
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KpiCard label="Total area" value={farm.area} hint={`${farm.blocks} blocks · ${farm.sectors} sectors`} />
+        <KpiCard label="Total area" value={farm.area} hint={`${farm.blocks} blocks`} />
         <KpiCard label="Plant population" value={farm.plants} hint={`≈ ${farm.density}`} accent="olive" />
         <KpiCard label="Healthy canopy" value={farm.healthyPct} hint="last imagery 4h ago" accent="sage" delta={farm.kpis.health.ndviDelta} />
         <KpiCard label="Yield Prediction" value={farm.yieldForecast} hint={`${farm.confidence} confidence`} accent="harvest" delta={farm.yieldDelta} />
@@ -47,16 +49,16 @@ function Page() {
             <h3 className="font-display text-lg font-semibold">Estate boundary</h3>
             <Badge variant="outline" className="font-normal">Composite layer</Badge>
           </div>
-          <FieldMap className="h-80" overlay={farm.accent === "sage" ? "health" : farm.accent === "olive" ? "ndvi" : "ndre"} label={farm.mapLabel} />
+          <FieldMap className="h-80" overlay={farm.accent === "sage" ? "health" : farm.accent === "olive" ? "ndvi" : "ndre"} label={`${farm.name} · 4 blocks`} />
         </Card>
 
         <Card className="p-6 lg:col-span-2 border-border/60 shadow-none">
           <h3 className="font-display text-lg font-semibold">Estate metadata</h3>
           <dl className="mt-4 divide-y divide-border/60 text-sm">
             {[
-              ["Cultivar", farm.cultivar], ["Established", farm.established], ["Soil profile", farm.soil],
-              ["Avg elevation", farm.elevation], ["Climate zone", farm.climate], ["Irrigation", farm.irrigation],
-              ["Certifications", farm.certs], ["Manager", farm.manager],
+              ["Crop", farm.crop], ["Estate type", farm.estateType], ["Established", farm.established],
+              ["Soil profile", farm.soil], ["Avg elevation", farm.elevation],
+              ["Climate zone", farm.climate], ["Irrigation", farm.irrigation], ["Manager", farm.manager],
             ].map(([k, v]) => (
               <div key={k} className="flex justify-between gap-4 py-2.5">
                 <dt className="text-muted-foreground">{k}</dt>
@@ -70,26 +72,32 @@ function Page() {
       <Card className="p-6 border-border/60 shadow-none">
         <div className="mb-4 flex items-end justify-between">
           <div>
-            <h3 className="font-display text-lg font-semibold">Yield prediction</h3>
-            <p className="text-xs text-muted-foreground">Projected tonnage trajectory · {farm.confidence} model confidence</p>
+            <h3 className="font-display text-lg font-semibold">Yield Prediction</h3>
+            <p className="text-xs text-muted-foreground">Yearly expected vs actual yield (t/ha) · {farm.crop} planted each year</p>
           </div>
           <Badge variant="secondary" className="bg-sage/15 text-sage-deep border-0">{farm.yieldDelta}</Badge>
         </div>
-        <div className="h-64">
+        <div className="h-72">
           <ResponsiveContainer>
-            <AreaChart data={farm.weeklyYield}>
-              <defs>
-                <linearGradient id="ovg" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--sage-deep)" stopOpacity={0.35} />
-                  <stop offset="100%" stopColor="var(--sage-deep)" stopOpacity={0} />
-                </linearGradient>
-              </defs>
+            <LineChart data={farm.yearlyYield}>
               <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
-              <XAxis dataKey="w" stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
+              <XAxis dataKey="year" stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
               <YAxis stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
-              <Tooltip contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12 }} />
-              <Area type="monotone" dataKey="y" stroke="var(--sage-deep)" strokeWidth={2} fill="url(#ovg)" />
-            </AreaChart>
+              <Tooltip
+                contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12 }}
+                formatter={(value: any, name: any, item: any) => {
+                  if (name === "crop") return null as any;
+                  return [`${value} t/ha`, name];
+                }}
+                labelFormatter={(label, payload) => {
+                  const c = payload?.[0]?.payload?.crop;
+                  return c ? `${label} · ${c}` : label;
+                }}
+              />
+              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Line type="monotone" dataKey="expected" name="Expected" stroke="var(--olive)" strokeWidth={2} strokeDasharray="4 4" dot={{ r: 3 }} />
+              <Line type="monotone" dataKey="actual" name="Actual" stroke="var(--sage-deep)" strokeWidth={2.5} dot={{ r: 4 }} connectNulls={false} />
+            </LineChart>
           </ResponsiveContainer>
         </div>
       </Card>
