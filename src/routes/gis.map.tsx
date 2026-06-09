@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/page-header";
-import { FieldMap, LegendSwatch } from "@/components/farm-ui";
+import { FieldMap } from "@/components/farm-ui";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useFarm } from "@/lib/farms";
 
 export const Route = createFileRoute("/gis/map")({
-  head: () => ({ meta: [{ title: "GIS Mapping — Verdant" }] }),
+  head: () => ({ meta: [{ title: "GIS Mapping — Agritech" }] }),
   component: Page,
 });
 
