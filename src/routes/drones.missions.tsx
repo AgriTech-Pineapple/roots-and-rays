@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Plane, Plus } from "lucide-react";
 
 export const Route = createFileRoute("/drones/missions")({
-  head: () => ({ meta: [{ title: "Drone Missions — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Drone Missions — Agritech" }] }),
   component: Page,
 });
 

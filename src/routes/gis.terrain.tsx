@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { GisWorkspace } from "@/components/gis-workspace";
 
 export const Route = createFileRoute("/gis/terrain")({
-  head: () => ({ meta: [{ title: "Terrain Layer — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Terrain Layer — Agritech" }] }),
   component: () => (
     <GisWorkspace
       overlay="terrain"

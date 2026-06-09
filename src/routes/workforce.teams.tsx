@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 export const Route = createFileRoute("/workforce/teams")({
-  head: () => ({ meta: [{ title: "Teams — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Teams — Agritech" }] }),
   component: Page,
 });
 

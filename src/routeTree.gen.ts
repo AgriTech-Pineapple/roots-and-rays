@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as DataRouteImport } from './routes/data'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
@@ -44,6 +45,11 @@ import { Route as DronesEquipmentRouteImport } from './routes/drones.equipment'
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DataRoute = DataRouteImport.update({
@@ -201,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/data': typeof DataRoute
+  '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/drones/equipment': typeof DronesEquipmentRoute
   '/drones/logs': typeof DronesLogsRoute
@@ -234,6 +241,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/data': typeof DataRoute
+  '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/drones/equipment': typeof DronesEquipmentRoute
   '/drones/logs': typeof DronesLogsRoute
@@ -268,6 +276,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/data': typeof DataRoute
+  '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/drones/equipment': typeof DronesEquipmentRoute
   '/drones/logs': typeof DronesLogsRoute
@@ -303,6 +312,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/data'
+    | '/profile'
     | '/settings'
     | '/drones/equipment'
     | '/drones/logs'
@@ -336,6 +346,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/data'
+    | '/profile'
     | '/settings'
     | '/drones/equipment'
     | '/drones/logs'
@@ -369,6 +380,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/data'
+    | '/profile'
     | '/settings'
     | '/drones/equipment'
     | '/drones/logs'
@@ -403,6 +415,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AlertsRoute: typeof AlertsRoute
   DataRoute: typeof DataRoute
+  ProfileRoute: typeof ProfileRoute
   SettingsRoute: typeof SettingsRoute
   DronesEquipmentRoute: typeof DronesEquipmentRoute
   DronesLogsRoute: typeof DronesLogsRoute
@@ -440,6 +453,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/data': {
@@ -659,6 +679,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlertsRoute: AlertsRoute,
   DataRoute: DataRoute,
+  ProfileRoute: ProfileRoute,
   SettingsRoute: SettingsRoute,
   DronesEquipmentRoute: DronesEquipmentRoute,
   DronesLogsRoute: DronesLogsRoute,

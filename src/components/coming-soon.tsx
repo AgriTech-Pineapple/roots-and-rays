@@ -29,7 +29,7 @@ export function ComingSoon({
               In development · ETA {eta}
             </Badge>
             <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl max-w-xl">
-              {title} is being built into the Verdant platform
+              {title} is being built into the Agritech platform
             </h2>
             <p className="max-w-md text-sm text-muted-foreground">
               We're crafting a focused, agronomist-grade experience for this module. You'll see it land here in the next release cycle.

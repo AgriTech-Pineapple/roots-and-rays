@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Battery, Plane, Wrench } from "lucide-react";
 
 export const Route = createFileRoute("/drones/equipment")({
-  head: () => ({ meta: [{ title: "Equipment — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Equipment — Agritech" }] }),
   component: Page,
 });
 

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/workforce/tasks")({
-  head: () => ({ meta: [{ title: "Task Assignments — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Task Assignments — Agritech" }] }),
   component: Page,
 });
 

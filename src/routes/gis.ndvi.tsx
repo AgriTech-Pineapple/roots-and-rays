@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { GisWorkspace } from "@/components/gis-workspace";
 
 export const Route = createFileRoute("/gis/ndvi")({
-  head: () => ({ meta: [{ title: "NDVI Layer — Verdant" }] }),
+  head: () => ({ meta: [{ title: "NDVI Layer — Agritech" }] }),
   component: () => (
     <GisWorkspace
       overlay="ndvi"

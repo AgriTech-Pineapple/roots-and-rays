@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/page-header";
-import { FieldMap, LegendSwatch } from "@/components/farm-ui";
+import { FieldMap } from "@/components/farm-ui";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useFarm } from "@/lib/farms";
 
 export const Route = createFileRoute("/gis/map")({
-  head: () => ({ meta: [{ title: "GIS Mapping — Verdant" }] }),
+  head: () => ({ meta: [{ title: "GIS Mapping — Agritech" }] }),
   component: Page,
 });
 
@@ -64,10 +64,7 @@ function Page() {
         title="GIS Mapping"
         description="Interactive layered map of the selected estate. Switch layers to inspect vegetation indices, terrain or yield."
         actions={
-          <>
-            <Button variant="outline" size="sm">Export GeoTIFF</Button>
-            <Button size="sm" className="bg-sage-deep hover:bg-sage-deep/90">Compare dates</Button>
-          </>
+          <Button size="sm" className="bg-sage-deep hover:bg-sage-deep/90">Export GeoTIFF</Button>
         }
       />
 
@@ -128,9 +125,8 @@ function Page() {
           </div>
           <FieldMap className="h-[560px] rounded-none border-0" overlay={layer.overlay} label={`${layer.label} · ${farm.name}`} />
           <div className="border-t border-border/60 px-4 py-2 flex items-center justify-between text-xs text-muted-foreground">
-            <span>EPSG:4326 · WGS 84</span>
-            <LegendSwatch items={layer.legend.slice(0, 4)} />
-            <span>Cursor {farm.coords}</span>
+            <span>Showing {farm.name}</span>
+            <span>Last capture · 6 Jun 2026</span>
           </div>
         </Card>
       </div>

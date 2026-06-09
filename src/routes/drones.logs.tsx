@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export const Route = createFileRoute("/drones/logs")({
-  head: () => ({ meta: [{ title: "Flight Logs — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Flight Logs — Agritech" }] }),
   component: Page,
 });
 

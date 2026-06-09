@@ -6,7 +6,7 @@ import { useFarm } from "@/lib/farms";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 export const Route = createFileRoute("/farm/growth")({
-  head: () => ({ meta: [{ title: "Growth Analysis — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Growth Analysis — Agritech" }] }),
   component: Page,
 });
 

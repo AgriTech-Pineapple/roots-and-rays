@@ -9,6 +9,7 @@ import {
   SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ACCOUNT } from "@/lib/farms";
 
 type Item = { title: string; url: string; icon: any; children?: { title: string; url: string }[] };
 
@@ -73,15 +74,15 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-b border-sidebar-border">
-        <div className="flex items-center gap-2.5 px-2 py-2">
+        <Link to="/" className="flex items-center gap-2.5 px-2 py-2 hover:opacity-90">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-sage-deep text-primary-foreground shadow-sm">
             <Leaf className="h-5 w-5" />
           </div>
           <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
-            <span className="font-display text-base font-semibold">Verdant</span>
+            <span className="font-display text-base font-semibold">Agritech</span>
             <span className="text-[11px] text-muted-foreground">Farm Intelligence</span>
           </div>
-        </div>
+        </Link>
       </SidebarHeader>
 
       <SidebarContent>
@@ -134,13 +135,18 @@ export function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border">
-        <div className="flex items-center gap-2.5 px-2 py-1.5 group-data-[collapsible=icon]:hidden">
-          <div className="h-8 w-8 rounded-full bg-gradient-to-br from-sage to-olive" />
-          <div className="flex flex-col leading-tight">
-            <span className="text-sm font-medium">M. Castillo</span>
-            <span className="text-[11px] text-muted-foreground">Estate Manager</span>
+        <Link
+          to="/profile"
+          className="flex items-center gap-2.5 rounded-md px-2 py-1.5 transition hover:bg-sidebar-accent group-data-[collapsible=icon]:px-1"
+        >
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sage to-olive text-xs font-semibold text-primary-foreground">
+            {ACCOUNT.initials}
           </div>
-        </div>
+          <div className="flex min-w-0 flex-col leading-tight group-data-[collapsible=icon]:hidden">
+            <span className="truncate text-sm font-medium">{ACCOUNT.fullName}</span>
+            <span className="text-[11px] text-muted-foreground">{ACCOUNT.role}</span>
+          </div>
+        </Link>
       </SidebarFooter>
     </Sidebar>
   );
