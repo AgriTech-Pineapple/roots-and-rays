@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ReportsPage } from "@/components/reports-page";
 
 export const Route = createFileRoute("/reports/farm")({
-  head: () => ({ meta: [{ title: "Farm Reports — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Farm Reports — Agritech" }] }),
   component: () => (
     <ReportsPage
       eyebrow="Reports" title="Farm Reports" description="Agronomy, health and yield reports synthesised from drone and field data."

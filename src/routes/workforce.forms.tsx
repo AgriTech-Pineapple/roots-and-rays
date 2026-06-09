@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FileText, ClipboardList, Droplets, Bug, Plane, Wheat, Sprout, Plus } from "lucide-react";
 
 export const Route = createFileRoute("/workforce/forms")({
-  head: () => ({ meta: [{ title: "Task Forms — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Task Forms — Agritech" }] }),
   component: Page,
 });
 

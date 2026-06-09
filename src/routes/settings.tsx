@@ -9,16 +9,16 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 
 export const Route = createFileRoute("/settings")({
-  head: () => ({ meta: [{ title: "Settings — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Settings — Agritech" }] }),
   component: Page,
 });
 
 const users = [
-  { name: "Maria Castillo", email: "m.castillo@verdant.farm", role: "Estate Manager", access: "Owner" },
-  { name: "Liwayway Santos", email: "l.santos@verdant.farm", role: "Lead Agronomist", access: "Admin" },
-  { name: "Diego Mariano", email: "d.mariano@verdant.farm", role: "Drone Operations", access: "Editor" },
-  { name: "Aurora Tan", email: "a.tan@verdant.farm", role: "Harvest Supervisor", access: "Editor" },
-  { name: "Esteban Rivera", email: "e.rivera@verdant.farm", role: "Field Lead", access: "Viewer" },
+  { name: "Maria Castillo", email: "m.castillo@agritech.my", role: "Estate Manager", access: "Owner" },
+  { name: "Liwayway Santos", email: "l.santos@agritech.my", role: "Lead Agronomist", access: "Admin" },
+  { name: "Diego Mariano", email: "d.mariano@agritech.my", role: "Drone Operations", access: "Editor" },
+  { name: "Aurora Tan", email: "a.tan@agritech.my", role: "Harvest Supervisor", access: "Editor" },
+  { name: "Esteban Rivera", email: "e.rivera@agritech.my", role: "Field Lead", access: "Viewer" },
 ];
 
 function Page() {
@@ -38,8 +38,8 @@ function Page() {
             <h3 className="font-display text-lg font-semibold mb-4">Organisation details</h3>
             <div className="space-y-4">
               {[
-                ["Organisation name", "Verdant Plantations"],
-                ["Trading entity", "Verdant Agri Holdings, S.A."],
+                ["Organisation name", "Agritech Plantations"],
+                ["Trading entity", "Agritech Agri Holdings, S.A."],
                 ["Primary estate", "La Cordillera (1,247 ha)"],
                 ["Headquarters", "Davao, Philippines"],
               ].map(([k, v]) => (

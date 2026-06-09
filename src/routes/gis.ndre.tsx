@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { GisWorkspace } from "@/components/gis-workspace";
 
 export const Route = createFileRoute("/gis/ndre")({
-  head: () => ({ meta: [{ title: "NDRE Layer — Verdant" }] }),
+  head: () => ({ meta: [{ title: "NDRE Layer — Agritech" }] }),
   component: () => (
     <GisWorkspace
       overlay="ndre"

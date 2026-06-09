@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 export const Route = createFileRoute("/workforce/analytics")({
-  head: () => ({ meta: [{ title: "Workforce Analytics — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Workforce Analytics — Agritech" }] }),
   component: Page,
 });
 

@@ -3,7 +3,7 @@ import { ComingSoon } from "@/components/coming-soon";
 import { Users } from "lucide-react";
 
 export const Route = createFileRoute("/workforce/")({
-  head: () => ({ meta: [{ title: "Workforce — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Workforce — Agritech" }] }),
   component: () => (
     <ComingSoon
       eyebrow="Operations"

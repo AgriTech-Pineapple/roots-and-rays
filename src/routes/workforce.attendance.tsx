@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 export const Route = createFileRoute("/workforce/attendance")({
-  head: () => ({ meta: [{ title: "Attendance — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Attendance — Agritech" }] }),
   component: Page,
 });
 

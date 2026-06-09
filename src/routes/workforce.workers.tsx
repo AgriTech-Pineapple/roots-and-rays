@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Search, Filter, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/workforce/workers")({
-  head: () => ({ meta: [{ title: "Workers — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Workers — Agritech" }] }),
   component: Page,
 });
 

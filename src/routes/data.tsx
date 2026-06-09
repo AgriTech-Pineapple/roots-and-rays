@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { UploadCloud, Database, FileImage, Map as MapIcon } from "lucide-react";
 
 export const Route = createFileRoute("/data")({
-  head: () => ({ meta: [{ title: "Data Management — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Data Management — Agritech" }] }),
   component: Page,
 });
 

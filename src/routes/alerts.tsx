@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, AlertCircle, Bell, Info } from "lucide-react";
 
 export const Route = createFileRoute("/alerts")({
-  head: () => ({ meta: [{ title: "Alerts — Verdant" }] }),
+  head: () => ({ meta: [{ title: "Alerts — Agritech" }] }),
   component: Page,
 });
 

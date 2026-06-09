@@ -51,10 +51,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Verdant — Farm Intelligence Platform" },
+      { title: "Agritech — Farm Intelligence Platform" },
       { name: "description", content: "Enterprise agricultural intelligence for plantation operators, agronomists and drone teams." },
-      { property: "og:title", content: "Verdant — Farm Intelligence Platform" },
-      { name: "twitter:title", content: "Verdant — Farm Intelligence Platform" },
+      { property: "og:title", content: "Agritech — Farm Intelligence Platform" },
+      { name: "twitter:title", content: "Agritech — Farm Intelligence Platform" },
       { property: "og:description", content: "Enterprise agricultural intelligence for plantation operators, agronomists and drone teams." },
       { name: "twitter:description", content: "Enterprise agricultural intelligence for plantation operators, agronomists and drone teams." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/359a74ab-84d0-48fd-8e11-6067362fd620/id-preview-04959630--5a12b8e0-f136-49d2-bf80-e036fd8dd11f.lovable.app-1780554328458.png" },
