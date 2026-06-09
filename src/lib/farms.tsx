@@ -384,11 +384,11 @@ export function getFarm(id: FarmId): Farm {
 }
 
 export const ACCOUNT = {
-  firstName: "Ahmad",
-  fullName: "Ahmad Ismail",
-  email: "ahmad.ismail@agritech.my",
+  firstName: "Nishit",
+  fullName: "Nishit DB",
+  email: "nishit.db@gmail.com",
   role: "Estate Manager",
-  initials: "AI",
+  initials: "NDB",
 };
 
 type Ctx = { farmId: FarmId; setFarmId: (id: FarmId) => void; farm: Farm };
