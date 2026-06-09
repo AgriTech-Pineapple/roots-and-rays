@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({ meta: [{ title: "Settings — Agritech" }] }),
@@ -14,11 +15,19 @@ export const Route = createFileRoute("/settings")({
 });
 
 const users = [
-  { name: "Maria Castillo", email: "m.castillo@agritech.my", role: "Estate Manager", access: "Owner" },
-  { name: "Liwayway Santos", email: "l.santos@agritech.my", role: "Lead Agronomist", access: "Admin" },
-  { name: "Diego Mariano", email: "d.mariano@agritech.my", role: "Drone Operations", access: "Editor" },
-  { name: "Aurora Tan", email: "a.tan@agritech.my", role: "Harvest Supervisor", access: "Editor" },
-  { name: "Esteban Rivera", email: "e.rivera@agritech.my", role: "Field Lead", access: "Viewer" },
+  { name: "Ahmad Ismail", email: "ahmad.ismail@agritech.my", role: "Estate Manager", access: "Owner" },
+  { name: "Sarah Tan", email: "sarah.tan@agritech.my", role: "Lead Agronomist", access: "Admin" },
+  { name: "David Lee", email: "david.lee@agritech.my", role: "Drone Operations", access: "Editor" },
+  { name: "Nurul Aisyah", email: "nurul.aisyah@agritech.my", role: "Harvest Supervisor", access: "Editor" },
+  { name: "Raj Kumar", email: "raj.kumar@agritech.my", role: "Field Lead", access: "Viewer" },
+];
+
+const prefs: { key: string; label: string; default: string; options: string[] }[] = [
+  { key: "units", label: "Units", default: "Metric (ha · t · °C)", options: ["Metric (ha · t · °C)", "Imperial (ac · lb · °F)"] },
+  { key: "crs", label: "Coordinate system", default: "EPSG:4326 — WGS 84", options: ["EPSG:4326 — WGS 84", "EPSG:3857 — Web Mercator", "EPSG:3375 — Kertau RSO Malaya"] },
+  { key: "tz", label: "Time zone", default: "Asia/Kuala_Lumpur (UTC+8)", options: ["Asia/Kuala_Lumpur (UTC+8)", "Asia/Singapore (UTC+8)", "Asia/Jakarta (UTC+7)", "UTC"] },
+  { key: "basemap", label: "Map basemap", default: "Topographic", options: ["Topographic", "Satellite", "Streets", "Hybrid"] },
+  { key: "theme", label: "Theme", default: "System default", options: ["System default", "Light", "Dark"] },
 ];
 
 function Page() {
@@ -39,9 +48,9 @@ function Page() {
             <div className="space-y-4">
               {[
                 ["Organisation name", "Agritech Plantations"],
-                ["Trading entity", "Agritech Agri Holdings, S.A."],
-                ["Primary estate", "La Cordillera (1,247 ha)"],
-                ["Headquarters", "Davao, Philippines"],
+                ["Trading entity", "Agritech Agri Holdings Sdn Bhd"],
+                ["Primary estate", "Farm 1 (1,247 ha)"],
+                ["Headquarters", "Kuala Lumpur, Malaysia"],
               ].map(([k, v]) => (
                 <div key={k} className="grid grid-cols-3 items-center gap-3">
                   <Label className="text-sm text-muted-foreground">{k}</Label>
@@ -106,18 +115,20 @@ function Page() {
           <Card className="p-6 border-border/60 shadow-none max-w-2xl">
             <h3 className="font-display text-lg font-semibold mb-4">Platform preferences</h3>
             <div className="space-y-4">
-              {[
-                ["Units", "Metric (ha · t · °C)"],
-                ["Coordinate system", "EPSG:4326 — WGS 84"],
-                ["Time zone", "Asia/Manila (UTC+8)"],
-                ["Map basemap", "Topographic"],
-                ["Theme", "System default"],
-              ].map(([k, v]) => (
-                <div key={k} className="grid grid-cols-3 items-center gap-3">
-                  <Label className="text-sm text-muted-foreground">{k}</Label>
-                  <Input defaultValue={v} className="col-span-2" />
+              {prefs.map((p) => (
+                <div key={p.key} className="grid grid-cols-3 items-center gap-3">
+                  <Label className="text-sm text-muted-foreground">{p.label}</Label>
+                  <div className="col-span-2">
+                    <Select defaultValue={p.default}>
+                      <SelectTrigger><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        {p.options.map((o) => <SelectItem key={o} value={o}>{o}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               ))}
+              <div className="pt-2"><Button size="sm" className="bg-sage-deep hover:bg-sage-deep/90">Save preferences</Button></div>
             </div>
           </Card>
         </TabsContent>

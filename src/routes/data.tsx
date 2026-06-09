@@ -14,10 +14,9 @@ export const Route = createFileRoute("/data")({
 const datasets = [
   { name: "Estate orthomosaic · 6 Jun 2026", type: "GeoTIFF", size: "4.2 GB", source: "MX-218", status: "Processed" },
   { name: "NDVI composite · 6 Jun 2026", type: "GeoTIFF", size: "812 MB", source: "MX-218", status: "Processed" },
-  { name: "Thermal scan · Sector 5", type: "GeoTIFF", size: "1.1 GB", source: "MX-198", status: "Processing" },
+  { name: "Terrain scan · Sector 5", type: "GeoTIFF", size: "1.1 GB", source: "MX-198", status: "Processing" },
   { name: "Field boundaries · 2026", type: "Shapefile", size: "12 MB", source: "GIS team", status: "Active" },
   { name: "Harvest records · May 2026", type: "CSV", size: "184 KB", source: "Field forms", status: "Active" },
-  { name: "LiDAR point cloud · estate", type: "LAS", size: "8.6 GB", source: "MX-201", status: "Archived" },
 ];
 
 function Page() {
