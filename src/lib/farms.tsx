@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-export type FarmId = "la-cordillera" | "valle-verde" | "bahia-dorada";
+export type FarmId = "farm-1" | "farm-2" | "farm-3";
 
 export type Farm = {
   id: FarmId;
   name: string;
   subtitle: string;
-  cultivar: string;
+  crop: string;
+  estateType: string;
   region: string;
   established: string;
   area: string;
@@ -26,21 +27,19 @@ export type Farm = {
   elevation: string;
   climate: string;
   irrigation: string;
-  certs: string;
   manager: string;
   coords: string;
   accent: "sage" | "olive" | "harvest";
-  // distinct visual hint for map
   mapLabel: string;
   blockRows: { id: string; area: number; plants: number; health: string; yield: string }[];
-  weeklyYield: { w: string; y: number }[];
-  yieldBand: { w: string; low: number; mid: number; high: number }[];
+  yearlyYield: { year: string; expected: number; actual: number | null; crop: string }[];
+  monthlyBand: { m: string; low: number; mid: number; high: number }[];
   densityByBlock: { block: string; d: number }[];
   canopy: { wk: string; c: number }[];
   variance: { block: string; v: number }[];
   indexTrend: { d: string; NDVI: number; NDRE: number; SAVI: number }[];
-  history: { m: string; h: number; y: number }[];
-  captures: { date: string; mission: string; area: string; change: string }[];
+  history: { m: string; NDVI: number; NDRE: number; SAVI: number; Yield: number }[];
+  captures: { date: string; mission: string; area: string; ndviChange: string; remarks: string }[];
   recommendations: { title: string; reason: string }[];
   alerts: { level: "High" | "Medium" | "Low"; title: string; ago: string }[];
   interpretation: string[];
@@ -54,11 +53,12 @@ export type Farm = {
 
 const farms: Farm[] = [
   {
-    id: "la-cordillera",
-    name: "Estate La Cordillera",
-    subtitle: "Highland MD2 estate · Region IV",
-    cultivar: "MD2 Gold",
-    region: "Region IV-A, Cordillera",
+    id: "farm-1",
+    name: "Farm 1",
+    subtitle: "Highland Pineapple Estate",
+    crop: "Pineapple",
+    estateType: "Highland Estate",
+    region: "Cameron Highlands, Pahang",
     established: "2009",
     area: "1,247 ha",
     blocks: 38,
@@ -70,18 +70,17 @@ const farms: Farm[] = [
     yieldForecast: "61.4 t/ha",
     yieldDelta: "+8.7% YoY",
     totalTonnage: "76,570 t",
-    revenue: "$28.4M",
-    harvestWindow: "Wk 38–46",
+    revenue: "RM 124M",
+    harvestWindow: "Aug – Oct",
     confidence: "91%",
     soil: "Volcanic loam",
     elevation: "412 m",
     climate: "Tropical wet",
     irrigation: "Drip · 92% coverage",
-    certs: "GlobalG.A.P · Rainforest Alliance",
-    manager: "Maria Castillo",
-    coords: "18°N 121°E",
+    manager: "Ahmad Ismail",
+    coords: "4°N 101°E",
     accent: "sage",
-    mapLabel: "La Cordillera · 4 sectors",
+    mapLabel: "Farm 1 · 4 blocks",
     blockRows: [
       { id: "A-1", area: 42.1, plants: 92340, health: "Healthy", yield: "63.2 t/ha" },
       { id: "A-2", area: 38.5, plants: 84200, health: "Healthy", yield: "61.0 t/ha" },
@@ -90,12 +89,20 @@ const farms: Farm[] = [
       { id: "C-3", area: 33.4, plants: 73600, health: "Severe stress", yield: "48.1 t/ha" },
       { id: "C-4", area: 41.7, plants: 91100, health: "Healthy", yield: "62.5 t/ha" },
     ],
-    weeklyYield: [
-      { w: "W34", y: 42 }, { w: "W35", y: 45 }, { w: "W36", y: 47 },
-      { w: "W37", y: 49 }, { w: "W38", y: 52 }, { w: "W39", y: 55 },
-      { w: "W40", y: 58 }, { w: "W41", y: 61 },
+    yearlyYield: [
+      { year: "2020", expected: 54, actual: 53, crop: "Pineapple" },
+      { year: "2021", expected: 55, actual: 56, crop: "Pineapple" },
+      { year: "2022", expected: 57, actual: 56, crop: "Pineapple" },
+      { year: "2023", expected: 58, actual: 59, crop: "Pineapple" },
+      { year: "2024", expected: 59, actual: 58, crop: "Pineapple" },
+      { year: "2025", expected: 60, actual: 61, crop: "Pineapple" },
+      { year: "2026", expected: 61, actual: null, crop: "Pineapple" },
     ],
-    yieldBand: Array.from({ length: 12 }, (_, i) => ({ w: `W${30 + i}`, low: 52 + i * 0.6, mid: 56 + i * 0.7, high: 60 + i * 0.8 })),
+    monthlyBand: [
+      { m: "Jul", low: 52, mid: 56, high: 60 }, { m: "Aug", low: 54, mid: 58, high: 62 },
+      { m: "Sep", low: 56, mid: 60, high: 64 }, { m: "Oct", low: 58, mid: 62, high: 66 },
+      { m: "Nov", low: 57, mid: 61, high: 65 }, { m: "Dec", low: 55, mid: 59, high: 63 },
+    ],
     densityByBlock: [
       { block: "A-1", d: 2192 }, { block: "A-2", d: 2186 }, { block: "B-1", d: 2222 },
       { block: "B-2", d: 2198 }, { block: "C-3", d: 2089 }, { block: "C-4", d: 2184 },
@@ -118,29 +125,33 @@ const farms: Farm[] = [
       { d: "Jun 5", NDVI: 0.77, NDRE: 0.48, SAVI: 0.64 },
     ],
     history: [
-      { m: "Jan", h: 0.71, y: 56 }, { m: "Feb", h: 0.72, y: 57 }, { m: "Mar", h: 0.74, y: 58 },
-      { m: "Apr", h: 0.73, y: 58 }, { m: "May", h: 0.75, y: 60 }, { m: "Jun", h: 0.77, y: 61 },
+      { m: "Jan", NDVI: 0.71, NDRE: 0.43, SAVI: 0.58, Yield: 56 },
+      { m: "Feb", NDVI: 0.72, NDRE: 0.44, SAVI: 0.59, Yield: 57 },
+      { m: "Mar", NDVI: 0.74, NDRE: 0.45, SAVI: 0.60, Yield: 58 },
+      { m: "Apr", NDVI: 0.73, NDRE: 0.45, SAVI: 0.60, Yield: 58 },
+      { m: "May", NDVI: 0.75, NDRE: 0.46, SAVI: 0.62, Yield: 60 },
+      { m: "Jun", NDVI: 0.77, NDRE: 0.48, SAVI: 0.64, Yield: 61 },
     ],
     captures: [
-      { date: "6 Jun 2026", mission: "MX-218", area: "412 ha", change: "+0.02 NDVI" },
-      { date: "30 May 2026", mission: "MX-212", area: "1,247 ha", change: "+0.01 NDVI" },
-      { date: "22 May 2026", mission: "MX-207", area: "830 ha", change: "−0.01 NDVI" },
-      { date: "14 May 2026", mission: "MX-201", area: "1,247 ha", change: "+0.03 NDVI" },
+      { date: "6 Jun 2026", mission: "MX-218", area: "412 ha", ndviChange: "+0.02", remarks: "Routine survey · clear sky" },
+      { date: "30 May 2026", mission: "MX-212", area: "1,247 ha", ndviChange: "+0.01", remarks: "Light rain during capture" },
+      { date: "22 May 2026", mission: "MX-207", area: "830 ha", ndviChange: "−0.01", remarks: "Irrigation pump failure on Block C-3" },
+      { date: "14 May 2026", mission: "MX-201", area: "1,247 ha", ndviChange: "+0.03", remarks: "Post-storm recovery survey" },
     ],
     recommendations: [
-      { title: "Reduce irrigation on Block C-3", reason: "Soil moisture 18% above target after recent rainfall." },
-      { title: "Schedule foliar feed for Block B-1", reason: "NDRE trending downward over past 9 days." },
-      { title: "Deploy survey drone to Sector 5", reason: "Last imagery captured 12 days ago." },
+      { title: "Reduce irrigation on Block C-3", reason: "Soil too wet after recent rainfall." },
+      { title: "Schedule foliar feed for Block B-1", reason: "Plant health trending down for 9 days." },
+      { title: "Send drone to Block 5", reason: "No fresh imagery in 12 days." },
     ],
     alerts: [
-      { level: "High", title: "Severe stress detected in Block C-3", ago: "2h ago" },
-      { level: "Medium", title: "Foliar feed recommended for B-1", ago: "5h ago" },
-      { level: "Low", title: "Mission MX-218 completed successfully", ago: "1d ago" },
+      { level: "High", title: "Severe stress in Block C-3", ago: "2h ago" },
+      { level: "Medium", title: "Foliar feed needed for Block B-1", ago: "5h ago" },
+      { level: "Low", title: "Drone survey completed", ago: "1d ago" },
     ],
     interpretation: [
-      "Canopy vigor is improving across the northern blocks (A-1, A-2), with NDVI climbing 0.04 points over six weeks — consistent with the recent foliar program.",
-      "However, Block C-3 continues to show moisture stress: NDRE is trailing the estate average by 0.06 and SAVI confirms thinning canopy. A field inspection within 48 hours is recommended.",
-      "Overall the estate is on track for the +8.7% YoY yield projection. Keep irrigation flat through Wk 41 and re-evaluate after the next capture.",
+      "Crop vigor is improving across the northern blocks (A-1, A-2). Healthy green canopy expanded steadily over the last six weeks.",
+      "Block C-3 is still showing stress: leaves are thinner than the estate average and likely water-stressed. Plan a field walk within 48 hours.",
+      "Overall the farm is on track for the +8.7% yield improvement. Keep watering steady and re-check after the next drone capture.",
     ],
     kpis: {
       plants: { total: "2,743,118", avgDensity: "2,194 / ha", missing: "18,402" },
@@ -150,11 +161,12 @@ const farms: Farm[] = [
     },
   },
   {
-    id: "valle-verde",
-    name: "Hacienda Valle Verde",
-    subtitle: "Mid-elevation MD2 · Region III",
-    cultivar: "MD2 Gold",
-    region: "Region III, Central Valley",
+    id: "farm-2",
+    name: "Farm 2",
+    subtitle: "Lowland Oil Palm Estate",
+    crop: "Oil Palm",
+    estateType: "Lowland Estate",
+    region: "Sandakan, Sabah",
     established: "2014",
     area: "842 ha",
     blocks: 26,
@@ -166,18 +178,17 @@ const farms: Farm[] = [
     yieldForecast: "54.8 t/ha",
     yieldDelta: "+2.4% YoY",
     totalTonnage: "46,140 t",
-    revenue: "$17.1M",
-    harvestWindow: "Wk 40–48",
+    revenue: "RM 74M",
+    harvestWindow: "Sep – Nov",
     confidence: "84%",
     soil: "Alluvial clay-loam",
     elevation: "218 m",
     climate: "Tropical seasonal",
     irrigation: "Sprinkler · 68% coverage",
-    certs: "GlobalG.A.P",
-    manager: "Andres Pineda",
-    coords: "16°N 120°E",
+    manager: "Ahmad Ismail",
+    coords: "5°N 118°E",
     accent: "harvest",
-    mapLabel: "Valle Verde · 3 sectors",
+    mapLabel: "Farm 2 · 4 blocks",
     blockRows: [
       { id: "V-1", area: 36.4, plants: 79100, health: "Healthy", yield: "57.2 t/ha" },
       { id: "V-2", area: 31.8, plants: 68900, health: "Mild stress", yield: "52.0 t/ha" },
@@ -186,12 +197,20 @@ const farms: Farm[] = [
       { id: "W-2", area: 39.1, plants: 84500, health: "Severe stress", yield: "44.6 t/ha" },
       { id: "W-3", area: 33.7, plants: 73100, health: "Healthy", yield: "55.3 t/ha" },
     ],
-    weeklyYield: [
-      { w: "W34", y: 36 }, { w: "W35", y: 38 }, { w: "W36", y: 40 },
-      { w: "W37", y: 43 }, { w: "W38", y: 46 }, { w: "W39", y: 49 },
-      { w: "W40", y: 52 }, { w: "W41", y: 54 },
+    yearlyYield: [
+      { year: "2020", expected: 48, actual: 47, crop: "Oil Palm" },
+      { year: "2021", expected: 49, actual: 50, crop: "Oil Palm" },
+      { year: "2022", expected: 51, actual: 50, crop: "Oil Palm" },
+      { year: "2023", expected: 52, actual: 51, crop: "Oil Palm" },
+      { year: "2024", expected: 53, actual: 53, crop: "Oil Palm" },
+      { year: "2025", expected: 54, actual: 54, crop: "Oil Palm" },
+      { year: "2026", expected: 55, actual: null, crop: "Oil Palm" },
     ],
-    yieldBand: Array.from({ length: 12 }, (_, i) => ({ w: `W${30 + i}`, low: 44 + i * 0.5, mid: 48 + i * 0.6, high: 52 + i * 0.7 })),
+    monthlyBand: [
+      { m: "Aug", low: 44, mid: 48, high: 52 }, { m: "Sep", low: 46, mid: 50, high: 54 },
+      { m: "Oct", low: 48, mid: 52, high: 56 }, { m: "Nov", low: 50, mid: 54, high: 58 },
+      { m: "Dec", low: 49, mid: 53, high: 57 }, { m: "Jan", low: 47, mid: 51, high: 55 },
+    ],
     densityByBlock: [
       { block: "V-1", d: 2174 }, { block: "V-2", d: 2168 }, { block: "V-3", d: 2167 },
       { block: "W-1", d: 2192 }, { block: "W-2", d: 2104 }, { block: "W-3", d: 2188 },
@@ -210,47 +229,52 @@ const farms: Farm[] = [
       { d: "May 8", NDVI: 0.67, NDRE: 0.39, SAVI: 0.53 },
       { d: "May 15", NDVI: 0.68, NDRE: 0.39, SAVI: 0.54 },
       { d: "May 22", NDVI: 0.67, NDRE: 0.37, SAVI: 0.53 },
-      { d: "May 29", NDVI: 0.68, NDRE: 0.38, SAVI: 0.54 },
+      { d: "May 29", NDVI: 0.69, NDRE: 0.40, SAVI: 0.55 },
       { d: "Jun 5", NDVI: 0.69, NDRE: 0.40, SAVI: 0.55 },
     ],
     history: [
-      { m: "Jan", h: 0.64, y: 49 }, { m: "Feb", h: 0.65, y: 50 }, { m: "Mar", h: 0.67, y: 51 },
-      { m: "Apr", h: 0.66, y: 51 }, { m: "May", h: 0.68, y: 53 }, { m: "Jun", h: 0.69, y: 54 },
+      { m: "Jan", NDVI: 0.63, NDRE: 0.37, SAVI: 0.49, Yield: 49 },
+      { m: "Feb", NDVI: 0.64, NDRE: 0.37, SAVI: 0.50, Yield: 50 },
+      { m: "Mar", NDVI: 0.66, NDRE: 0.38, SAVI: 0.52, Yield: 52 },
+      { m: "Apr", NDVI: 0.67, NDRE: 0.39, SAVI: 0.53, Yield: 52 },
+      { m: "May", NDVI: 0.68, NDRE: 0.39, SAVI: 0.54, Yield: 54 },
+      { m: "Jun", NDVI: 0.69, NDRE: 0.40, SAVI: 0.55, Yield: 55 },
     ],
     captures: [
-      { date: "5 Jun 2026", mission: "VV-104", area: "320 ha", change: "+0.01 NDVI" },
-      { date: "29 May 2026", mission: "VV-101", area: "842 ha", change: "−0.01 NDVI" },
-      { date: "21 May 2026", mission: "VV-098", area: "612 ha", change: "+0.02 NDVI" },
-      { date: "12 May 2026", mission: "VV-091", area: "842 ha", change: "+0.01 NDVI" },
+      { date: "5 Jun 2026", mission: "VV-114", area: "342 ha", ndviChange: "+0.01", remarks: "Sprinkler pressure low on Sector 3" },
+      { date: "29 May 2026", mission: "VV-110", area: "842 ha", ndviChange: "+0.02", remarks: "Routine survey" },
+      { date: "21 May 2026", mission: "VV-104", area: "520 ha", ndviChange: "−0.02", remarks: "Hail event 19 May" },
+      { date: "13 May 2026", mission: "VV-098", area: "842 ha", ndviChange: "+0.01", remarks: "Clear sky · full coverage" },
     ],
     recommendations: [
-      { title: "Inspect Block W-2 for mealybug wilt", reason: "Cluster of severe-stress pixels in the south-west corner." },
-      { title: "Expand sprinkler coverage in Sector 3", reason: "Irrigation reaches only 54% of W-series blocks." },
-      { title: "Bring forward Wk 40 scouting walk", reason: "Mild stress is widening across V-2 and V-3." },
+      { title: "Inspect Block W-2 for pest damage", reason: "Cluster of stressed plants detected." },
+      { title: "Repair sprinkler on Sector 3", reason: "Pressure has dropped over 4 days." },
+      { title: "Re-survey Block V-3", reason: "Cloud cover blurred last image." },
     ],
     alerts: [
       { level: "High", title: "Severe stress patch in Block W-2", ago: "1h ago" },
-      { level: "Medium", title: "Sprinkler pressure low on Sector 3 line", ago: "4h ago" },
-      { level: "Low", title: "VV-104 survey completed", ago: "1d ago" },
+      { level: "Medium", title: "Sprinkler pressure low on Sector 3", ago: "4h ago" },
+      { level: "Low", title: "Survey VV-114 completed", ago: "1d ago" },
     ],
     interpretation: [
-      "Health indices are flat: NDVI gained only 0.03 in six weeks, well below the La Cordillera benchmark. The estate is healthy on average, but uniformity is the issue.",
-      "Block W-2 is the main concern — severe-stress signature is consistent with mealybug wilt. Recommend an on-foot scouting walk this week and isolate the affected rows before insecticide application.",
-      "Expected season yield (54.8 t/ha) is on plan, but upside depends on resolving the W-series stress quickly. Sprinkler coverage upgrades would lift Sector 3 by an estimated 2–3 t/ha next cycle.",
+      "Crop vigor is holding steady. Most blocks are green and growing as expected, but uniformity is dropping.",
+      "Block W-2 has a cluster of stressed plants, likely pest-related. Send the field team this week to confirm.",
+      "Yield is tracking +2.4% YoY. Fix the irrigation issue on Sector 3 to protect that gain.",
     ],
     kpis: {
-      plants: { total: "1,834,602", avgDensity: "2,178 / ha", missing: "24,810" },
-      health: { healthyPct: "78.1%", mild: "14.6%", severe: "7.3%", ndvi: "0.69", ndviDelta: "▲ 0.01" },
-      growth: { canopy: "63.4%", uniformity: "84.2", variance: "9.6%", stage: "Vegetative", canopyDelta: "▲ 1.8 pts" },
+      plants: { total: "1,834,560", avgDensity: "2,178 / ha", missing: "27,140" },
+      health: { healthyPct: "78.1%", mild: "14.3%", severe: "7.6%", ndvi: "0.69", ndviDelta: "▲ 0.01" },
+      growth: { canopy: "62.4%", uniformity: "84.2", variance: "9.1%", stage: "Mid vegetative", canopyDelta: "▲ 1.9 pts" },
       history: { captures12mo: "36", ndviDelta: "+0.02", yieldDelta: "+2.4%", stress: "19" },
     },
   },
   {
-    id: "bahia-dorada",
-    name: "Plantación Bahía Dorada",
-    subtitle: "Coastal high-yield estate · Region V",
-    cultivar: "MD2 Gold · Sugarloaf trial",
-    region: "Region V, Coastal Bahía",
+    id: "farm-3",
+    name: "Farm 3",
+    subtitle: "Coastal Pineapple Estate",
+    crop: "Pineapple",
+    estateType: "Coastal Estate",
+    region: "Pontian, Johor",
     established: "2005",
     area: "1,583 ha",
     blocks: 47,
@@ -262,18 +286,17 @@ const farms: Farm[] = [
     yieldForecast: "68.9 t/ha",
     yieldDelta: "+11.3% YoY",
     totalTonnage: "109,070 t",
-    revenue: "$41.6M",
-    harvestWindow: "Wk 36–44",
+    revenue: "RM 178M",
+    harvestWindow: "Jul – Sep",
     confidence: "94%",
     soil: "Sandy loam · coastal",
     elevation: "84 m",
     climate: "Tropical humid",
     irrigation: "Drip + fertigation · 98% coverage",
-    certs: "GlobalG.A.P · Rainforest Alliance · Fair Trade",
-    manager: "Lucía Mendez",
-    coords: "14°N 122°E",
+    manager: "Ahmad Ismail",
+    coords: "1°N 103°E",
     accent: "olive",
-    mapLabel: "Bahía Dorada · 5 sectors",
+    mapLabel: "Farm 3 · 4 blocks",
     blockRows: [
       { id: "BD-1", area: 56.8, plants: 125600, health: "Healthy", yield: "71.0 t/ha" },
       { id: "BD-2", area: 48.3, plants: 106800, health: "Healthy", yield: "69.8 t/ha" },
@@ -282,12 +305,20 @@ const farms: Farm[] = [
       { id: "BD-5", area: 49.7, plants: 109800, health: "Healthy", yield: "68.2 t/ha" },
       { id: "BD-6", area: 44.2, plants: 97600, health: "Healthy", yield: "67.5 t/ha" },
     ],
-    weeklyYield: [
-      { w: "W34", y: 48 }, { w: "W35", y: 51 }, { w: "W36", y: 54 },
-      { w: "W37", y: 57 }, { w: "W38", y: 60 }, { w: "W39", y: 63 },
-      { w: "W40", y: 66 }, { w: "W41", y: 69 },
+    yearlyYield: [
+      { year: "2020", expected: 60, actual: 61, crop: "Pineapple" },
+      { year: "2021", expected: 62, actual: 63, crop: "Pineapple" },
+      { year: "2022", expected: 63, actual: 64, crop: "Pineapple" },
+      { year: "2023", expected: 65, actual: 65, crop: "Pineapple" },
+      { year: "2024", expected: 66, actual: 67, crop: "Pineapple" },
+      { year: "2025", expected: 67, actual: 68, crop: "Pineapple" },
+      { year: "2026", expected: 69, actual: null, crop: "Pineapple" },
     ],
-    yieldBand: Array.from({ length: 12 }, (_, i) => ({ w: `W${30 + i}`, low: 60 + i * 0.7, mid: 64 + i * 0.8, high: 68 + i * 0.9 })),
+    monthlyBand: [
+      { m: "Jun", low: 60, mid: 64, high: 68 }, { m: "Jul", low: 62, mid: 66, high: 70 },
+      { m: "Aug", low: 64, mid: 68, high: 72 }, { m: "Sep", low: 66, mid: 70, high: 74 },
+      { m: "Oct", low: 64, mid: 68, high: 72 }, { m: "Nov", low: 62, mid: 66, high: 70 },
+    ],
     densityByBlock: [
       { block: "BD-1", d: 2212 }, { block: "BD-2", d: 2218 }, { block: "BD-3", d: 2210 },
       { block: "BD-4", d: 2204 }, { block: "BD-5", d: 2220 }, { block: "BD-6", d: 2208 },
@@ -310,29 +341,33 @@ const farms: Farm[] = [
       { d: "Jun 5", NDVI: 0.81, NDRE: 0.51, SAVI: 0.68 },
     ],
     history: [
-      { m: "Jan", h: 0.74, y: 62 }, { m: "Feb", h: 0.76, y: 63 }, { m: "Mar", h: 0.78, y: 65 },
-      { m: "Apr", h: 0.79, y: 66 }, { m: "May", h: 0.80, y: 67 }, { m: "Jun", h: 0.81, y: 69 },
+      { m: "Jan", NDVI: 0.74, NDRE: 0.46, SAVI: 0.61, Yield: 62 },
+      { m: "Feb", NDVI: 0.76, NDRE: 0.47, SAVI: 0.62, Yield: 63 },
+      { m: "Mar", NDVI: 0.78, NDRE: 0.48, SAVI: 0.65, Yield: 65 },
+      { m: "Apr", NDVI: 0.79, NDRE: 0.49, SAVI: 0.66, Yield: 66 },
+      { m: "May", NDVI: 0.80, NDRE: 0.50, SAVI: 0.67, Yield: 67 },
+      { m: "Jun", NDVI: 0.81, NDRE: 0.51, SAVI: 0.68, Yield: 69 },
     ],
     captures: [
-      { date: "6 Jun 2026", mission: "BD-321", area: "640 ha", change: "+0.03 NDVI" },
-      { date: "30 May 2026", mission: "BD-318", area: "1,583 ha", change: "+0.02 NDVI" },
-      { date: "23 May 2026", mission: "BD-314", area: "980 ha", change: "+0.01 NDVI" },
-      { date: "15 May 2026", mission: "BD-309", area: "1,583 ha", change: "+0.02 NDVI" },
+      { date: "6 Jun 2026", mission: "BD-321", area: "640 ha", ndviChange: "+0.03", remarks: "Fertigation cycle complete" },
+      { date: "30 May 2026", mission: "BD-318", area: "1,583 ha", ndviChange: "+0.02", remarks: "Routine full survey" },
+      { date: "23 May 2026", mission: "BD-314", area: "980 ha", ndviChange: "+0.01", remarks: "Salinity signature detected in BD-4" },
+      { date: "15 May 2026", mission: "BD-309", area: "1,583 ha", ndviChange: "+0.02", remarks: "Clear sky · full coverage" },
     ],
     recommendations: [
-      { title: "Lock in early harvest crew for Wk 36", reason: "Yield is tracking 5% ahead of plan — peak window pulled forward." },
-      { title: "Begin fertigation taper on Sector 1", reason: "NDRE is saturating; nitrogen demand is dropping." },
-      { title: "Survey Block BD-4 with multispectral", reason: "Only block showing salinity-pattern stress." },
+      { title: "Pull harvest crew forward to Aug", reason: "Crop ripening 5% ahead of plan." },
+      { title: "Reduce fertigation on Sector 1", reason: "Plants are near maximum vigor." },
+      { title: "Re-survey Block BD-4", reason: "Salinity signature appearing near shore." },
     ],
     alerts: [
-      { level: "Medium", title: "Salinity signature emerging in Block BD-4", ago: "3h ago" },
-      { level: "Low", title: "Fertigation cycle 18 completed", ago: "6h ago" },
-      { level: "Low", title: "BD-321 multispectral survey completed", ago: "1d ago" },
+      { level: "High", title: "Salinity stress in Block BD-4", ago: "3h ago" },
+      { level: "Medium", title: "Harvest pace ahead of plan", ago: "6h ago" },
+      { level: "Low", title: "Fertigation cycle 18 completed", ago: "1d ago" },
     ],
     interpretation: [
-      "Bahía Dorada is performing exceptionally — NDVI climbed from 0.76 to 0.81 in six weeks, putting the estate at the top of the portfolio for vegetation vigor.",
-      "Only Block BD-4 is flagged: a salinity-pattern stress is appearing in the seaward corner. Move a multispectral pass forward by a week so the agronomy team can confirm before flowering.",
-      "Yield projection (+11.3% YoY) suggests pulling the harvest crew forward to Wk 36 to avoid logistics congestion at the packhouse.",
+      "Farm 3 is performing exceptionally — crop vigor improved steadily over six weeks and is the strongest in the portfolio.",
+      "Block BD-4 is the only flag: the corner closest to the sea is showing salt stress. Schedule a closer drone pass this week.",
+      "Yield projection (+11.3% YoY) suggests pulling the harvest crew forward to August to avoid packhouse congestion.",
     ],
     kpis: {
       plants: { total: "3,461,290", avgDensity: "2,212 / ha", missing: "9,820" },
@@ -348,20 +383,28 @@ export function getFarm(id: FarmId): Farm {
   return farms.find((f) => f.id === id) ?? farms[0];
 }
 
+export const ACCOUNT = {
+  firstName: "Ahmad",
+  fullName: "Ahmad Ismail",
+  email: "ahmad.ismail@agritech.my",
+  role: "Estate Manager",
+  initials: "AI",
+};
+
 type Ctx = { farmId: FarmId; setFarmId: (id: FarmId) => void; farm: Farm };
 const FarmCtx = createContext<Ctx | null>(null);
 
 export function FarmProvider({ children }: { children: ReactNode }) {
-  const [farmId, setFarmIdState] = useState<FarmId>("la-cordillera");
+  const [farmId, setFarmIdState] = useState<FarmId>("farm-1");
   useEffect(() => {
     try {
-      const v = localStorage.getItem("verdant.farm") as FarmId | null;
+      const v = localStorage.getItem("agritech.farm") as FarmId | null;
       if (v && farms.some((f) => f.id === v)) setFarmIdState(v);
     } catch {}
   }, []);
   const setFarmId = (id: FarmId) => {
     setFarmIdState(id);
-    try { localStorage.setItem("verdant.farm", id); } catch {}
+    try { localStorage.setItem("agritech.farm", id); } catch {}
   };
   const farm = getFarm(farmId);
   return <FarmCtx.Provider value={{ farmId, setFarmId, farm }}>{children}</FarmCtx.Provider>;
